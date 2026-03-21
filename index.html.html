@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIP VI – Zurich Roundtable</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ── Brand palette from swatch ── */
+  --olive:      #4a6741;
+  --olive-mid:  #7a9e72;
+  --olive-soft: #b8ceaf;
+  --olive-pale: #dae8d4;
+
+  --gold:       #c4963a;
+  --gold-mid:   #d4b06a;
+  --gold-soft:  #e8d4a0;
+  --gold-pale:  #f4ead0;
+
+  --navy:       #2d3f57;
+  --navy-mid:   #4e6a88;
+  --navy-soft:  #9ab4cc;
+  --navy-pale:  #ccdce8;
+
+  --blue:       #4e7a92;
+  --blue-mid:   #7fa8bc;
+  --blue-soft:  #b4cdd8;
+  --blue-pale:  #d8ecf4;
+
+  --sage:       #6a8f6a;
+  --sage-mid:   #94b494;
+  --sage-soft:  #bedabe;
+  --sage-pale:  #dceadc;
+
+  /* ── Layout ── */
+  --bg:         #f5f3ee;
+  --surface:    #ffffff;
+  --surface2:   #f0ede6;
+  --border:     #ddd8cc;
+  --border-light: #e8e4da;
+  --text:       #1e2a1e;
+  --text-mid:   #4a5240;
+  --text-muted: #8a9080;
+
+  /* ── Status colors mapped to palette ── */
+  --c-confirmed: var(--olive);
+  --c-progress:  var(--navy);
+  --c-soft:      var(--gold);
+  --c-declined:  #8a4a3a;
+
+  --c-confirmed-bg: rgba(74,103,65,0.08);
+  --c-progress-bg:  rgba(45,63,87,0.08);
+  --c-soft-bg:      rgba(196,150,58,0.1);
+  --c-declined-bg:  rgba(138,74,58,0.08);
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:13px; line-height:1.5; }
+
+/* ─── HEADER ─── */
+.header {
+  background: var(--navy);
+  padding: 0 48px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content:'';
+  position:absolute; bottom:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, var(--olive) 0%, var(--gold) 40%, var(--blue) 80%, transparent 100%);
+}
+.header-left {
+  padding: 28px 0;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding-right: 40px;
+}
+.header-left h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px; font-weight:600;
+  color:#fff; letter-spacing:0.01em; line-height:1.1;
+}
+.header-left h1 em { color:var(--gold-mid); font-style:normal; }
+.header-left p { color:var(--navy-soft); font-size:11px; margin-top:5px; text-transform:uppercase; letter-spacing:0.1em; font-weight:400; }
+
+.header-right {
+  display:flex; align-items:center; gap:48px;
+  padding: 28px 0 28px 40px;
+}
+.header-meta { text-align:right; }
+.header-meta .meta-label { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--navy-soft); font-weight:500; }
+.header-meta .meta-value { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--gold-mid); font-weight:600; line-height:1.1; display:block; margin-top:2px; }
+.header-meta .meta-sub   { font-size:11px; color:var(--navy-soft); margin-top:2px; }
+
+/* ─── MAIN ─── */
+.main { padding:32px 48px; max-width:1700px; }
+
+/* ─── SECTION LABELS ─── */
+.sec-label {
+  font-size:10px; font-weight:600; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--text-muted);
+  margin-bottom:12px; display:flex; align-items:center; gap:10px;
+}
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ══════════════════════════════════════════
+   1. CAMPAIGN TIMELINE
+══════════════════════════════════════════ */
+.campaign-block { margin-bottom:32px; }
+
+.ctl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px 44px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.ctl-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:4px;
+  background: linear-gradient(90deg,
+    var(--olive) 0%,
+    var(--olive) 28%,
+    var(--gold) 28%,
+    var(--gold) 52%,
+    var(--navy-soft) 52%,
+    var(--navy-soft) 76%,
+    var(--border) 76%
+  );
+}
+
+/* Rail */
+.ctl-rail {
+  display:flex; align-items:flex-start;
+  position:relative;
+  padding-top:4px;
+}
+
+/* The horizontal backbone line */
+.ctl-backbone {
+  position:absolute;
+  top: 30px; /* center of 60px nodes */
+  left: 30px;
+  right: 96px;
+  height: 2px;
+  z-index:0;
+}
+.ctl-backbone-fill {
+  position:absolute; top:0; left:0; height:2px;
+  width: 52%; /* through step 2, halfway to step 3 */
+  background: var(--olive);
+}
+.ctl-backbone-rest {
+  position:absolute; top:0; left:52%; right:0; height:2px;
+  background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 6px, transparent 6px, transparent 12px);
+}
+/* arrowhead at end */
+.ctl-backbone::after {
+  content:'';
+  position:absolute; right:-14px; top:-7px;
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+  border-left:15px solid var(--border);
+}
+
+/* Steps */
+.ctl-step { display:flex; flex-direction:column; align-items:center; flex:1; position:relative; z-index:1; }
+
+.ctl-node {
+  width:60px; height:60px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor:default;
+  position:relative;
+}
+.ctl-node:hover { transform:scale(1.06); }
+
+.ctl-node.done {
+  background: var(--c-confirmed-bg);
+  border: 2px solid var(--olive);
+  color: var(--olive);
+  box-shadow: 0 0 0 6px rgba(74,103,65,0.06);
+}
+.ctl-node.active {
+  background: var(--c-soft-bg);
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 0 6px rgba(196,150,58,0.08);
+  animation: ctlPulse 2.5s ease-in-out infinite;
+}
+.ctl-node.future {
+  background: var(--surface2);
+  border: 2px dashed var(--border);
+  color: var(--text-muted);
+}
+@keyframes ctlPulse {
+  0%,100% { box-shadow:0 0 0 6px rgba(196,150,58,0.08); }
+  50% { box-shadow:0 0 0 12px rgba(196,150,58,0.14); }
+}
+
+.ctl-step-body { margin-top:14px; text-align:center; }
+.ctl-step-num {
+  display:inline-block; font-size:9px; font-weight:600; text-transform:uppercase;
+  letter-spacing:0.1em; margin-bottom:4px; padding:2px 8px; border-radius:20px;
+}
+.ctl-step-num.done   { background:var(--c-confirmed-bg); color:var(--olive); }
+.ctl-step-num.active { background:var(--c-soft-bg); color:var(--gold); }
+.ctl-step-num.future { background:var(--surface2); color:var(--text-muted); }
+
+.ctl-step-title { font-size:13px; font-weight:600; color:var(--text); line-height:1.3; }
+.ctl-step-title.future { color:var(--text-muted); }
+.ctl-step-desc  { font-size:11px; color:var(--text-muted); margin-top:3px; }
+.ctl-step-date  {
+  margin-top:6px; font-family:'JetBrains Mono',monospace;
+  font-size:10px; padding:3px 10px; border-radius:4px; display:inline-block;
+}
+.ctl-step-date.done   { background:var(--olive-pale); color:var(--olive); }
+.ctl-step-date.active { background:var(--gold-pale); color:var(--gold); font-style:italic; }
+.ctl-step-date.future { background:var(--surface2); color:var(--text-muted); font-style:italic; }
+
+/* Event marker */
+.ctl-event {
+  display:flex; flex-direction:column; align-items:center;
+  padding-left:20px; position:relative; z-index:1; flex-shrink:0;
+}
+.ctl-event-node {
+  width:60px; height:60px; border-radius:10px;
+  background:var(--gold-pale); border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center; font-size:22px;
+}
+.ctl-event-body { margin-top:14px; text-align:center; }
+.ctl-event-label { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); }
+.ctl-event-title { font-size:13px; font-weight:600; color:var(--text); margin-top:4px; }
+.ctl-event-date  { margin-top:6px; font-family:'JetBrains Mono',monospace; font-size:10px; padding:3px 10px; border-radius:4px; background:var(--gold-pale); color:var(--gold); display:inline-block; }
+
+
+/* ══════════════════════════════════════════
+   2. KPI TILES
+══════════════════════════════════════════ */
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px; }
+
+.kpi-tile {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  transition: box-shadow 0.2s;
+}
+.kpi-tile.expandable { cursor:pointer; }
+.kpi-tile.expandable:hover { box-shadow:0 4px 16px rgba(0,0,0,0.07); }
+
+.kpi-top {
+  padding:20px 22px 16px;
+  display:flex; align-items:flex-start; justify-content:space-between;
+  position:relative;
+}
+.kpi-accent {
+  position:absolute; top:0; left:0; right:0; height:3px; border-radius:10px 10px 0 0;
+}
+.kpi-tile.confirmed .kpi-accent { background:var(--olive); }
+.kpi-tile.progress  .kpi-accent { background:var(--navy); }
+.kpi-tile.soft      .kpi-accent { background:var(--gold); }
+.kpi-tile.declined  .kpi-accent { background:#8a4a3a; }
+
+.kpi-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:8px; }
+.kpi-num   { font-family:'Cormorant Garamond',serif; font-size:52px; font-weight:700; line-height:1; }
+.kpi-tile.confirmed .kpi-num { color:var(--olive); }
+.kpi-tile.progress  .kpi-num { color:var(--navy); }
+.kpi-tile.soft      .kpi-num { color:var(--gold); }
+.kpi-tile.declined  .kpi-num { color:#8a4a3a; }
+.kpi-sub { font-size:11px; color:var(--text-muted); margin-top:4px; }
+
+.kpi-chevron {
+  font-size:10px; color:var(--text-muted); margin-top:4px;
+  transition:transform 0.25s; flex-shrink:0;
+}
+.kpi-tile.open .kpi-chevron { transform:rotate(180deg); }
+
+/* Expand panel */
+.kpi-expand {
+  max-height:0; overflow:hidden;
+  transition:max-height 0.3s cubic-bezier(0.4,0,0.2,1);
+  border-top:0px solid var(--border);
+}
+.kpi-tile.open .kpi-expand {
+  max-height:220px;
+  border-top:1px solid var(--border-light);
+}
+.kpi-expand-inner { padding:12px 22px 14px; }
+.kpi-bd-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:5px 0; border-bottom:1px solid var(--border-light);
+  font-size:12px;
+}
+.kpi-bd-row:last-child { border-bottom:none; }
+.kpi-bd-type  { color:var(--text-muted); }
+.kpi-bd-count { font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; }
+.kpi-tile.progress  .kpi-bd-count { color:var(--navy); }
+.kpi-tile.soft      .kpi-bd-count { color:var(--gold); }
+.kpi-tile.declined  .kpi-bd-count { color:#8a4a3a; }
+.kpi-tile .expand-hint { font-size:10px; color:var(--text-muted); margin-top:2px; }
+
+
+/* ══════════════════════════════════════════
+   3. TABLE
+══════════════════════════════════════════ */
+.table-wrap {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:10px; overflow:hidden; margin-bottom:28px; overflow-x:auto;
+}
+table { width:100%; border-collapse:collapse; min-width:1080px; }
+thead tr { background:var(--surface2); border-bottom:1px solid var(--border); }
+th {
+  padding:10px 14px; font-size:10px; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted);
+  text-align:left; white-space:nowrap;
+}
+th.c { text-align:center; }
+tbody tr { border-bottom:1px solid var(--border-light); }
+tbody tr:last-child { border-bottom:none; }
+tbody tr:hover { background:rgba(74,103,65,0.03); }
+td { padding:10px 14px; vertical-align:middle; }
+
+.declined-sep td {
+  padding:6px 14px;
+  font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em;
+  color:#8a4a3a; background:rgba(138,74,58,0.04);
+  border-bottom:1px solid rgba(138,74,58,0.1) !important;
+  border-top:1px solid rgba(138,74,58,0.1);
+}
+
+.own { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--navy-pale); font-size:9px; font-weight:700; color:var(--navy); letter-spacing:0.02em; }
+
+.badge {
+  font-size:9px; font-weight:600; padding:2px 7px; border-radius:3px;
+  text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap;
+}
+.b-sfo { background:var(--navy-pale);  color:var(--navy); }
+.b-mfo { background:var(--blue-pale);  color:var(--blue); }
+.b-pen { background:var(--olive-pale); color:var(--olive); }
+.b-pb  { background:var(--gold-pale);  color:var(--gold); }
+.b-iam { background:var(--sage-pale);  color:var(--sage); }
+
+.mono { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); }
+
+/* status */
+.stat {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:10px; font-weight:600; padding:4px 10px;
+  border-radius:4px; white-space:nowrap; letter-spacing:0.04em;
+}
+.stat::before { content:''; width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+.s-c { background:var(--c-confirmed-bg); color:var(--olive); }
+.s-c::before { background:var(--olive); }
+.s-p { background:var(--c-progress-bg); color:var(--navy); }
+.s-p::before { background:var(--navy); }
+.s-s { background:var(--c-soft-bg); color:var(--gold); }
+.s-s::before { background:var(--gold); }
+.s-d { background:var(--c-declined-bg); color:#8a4a3a; }
+.s-d::before { background:#8a4a3a; }
+
+/* Per-row timeline */
+.tl { display:flex; align-items:flex-start; gap:0; }
+.tlw { display:flex; flex-direction:column; align-items:center; width:76px; flex-shrink:0; }
+.tln {
+  width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:9px; font-weight:700; transition:transform 0.15s;
+}
+.tln:hover { transform:scale(1.1); }
+.tln.done  { background:var(--c-confirmed-bg); border:1.5px solid var(--olive);  color:var(--olive); }
+.tln.next  { background:var(--c-soft-bg);      border:1.5px dashed var(--gold);  color:var(--gold); }
+.tln.later { background:var(--surface2);        border:1.5px dashed var(--border);color:var(--text-muted); }
+.tln.off   { background:var(--border-light);    border:1.5px dashed var(--border);color:var(--border); opacity:0.4; }
+
+.tln-name { font-size:8px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; text-align:center; margin-top:3px; white-space:nowrap; }
+.tln-name.done  { color:var(--olive-mid); }
+.tln-name.next  { color:var(--gold-mid); }
+.tln-name.later { color:var(--text-muted); opacity:0.6; }
+.tln-name.off   { color:var(--text-muted); opacity:0.3; }
+
+.tln-date { font-family:'JetBrains Mono',monospace; font-size:8px; text-align:center; margin-top:1px; white-space:nowrap; }
+.tln-date.done  { color:var(--text-muted); }
+.tln-date.next  { color:var(--gold-mid); font-style:italic; }
+.tln-date.later { color:var(--text-muted); opacity:0.45; font-style:italic; }
+.tln-date.off   { color:var(--text-muted); opacity:0.25; }
+
+.tll { flex-shrink:0; width:20px; height:1.5px; position:relative; top:12px; }
+.tll.done    { background:var(--olive-soft); }
+.tll.pending { background:none; border-top:1.5px dashed var(--border); }
+
+.note { font-size:11px; color:var(--text-muted); font-style:italic; max-width:230px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+tr:hover .note { white-space:normal; }
+
+/* ══════════════════════════════════════════
+   4. BOTTOM — Pipeline + Campaign stats
+══════════════════════════════════════════ */
+.bottom { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+
+.panel {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:10px; overflow:hidden;
+}
+
+/* Pipeline collapsible */
+.pl-trigger {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 22px; cursor:pointer; user-select:none;
+  transition:background 0.15s;
+}
+.pl-trigger:hover { background:rgba(74,103,65,0.03); }
+.pl-trigger-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); }
+.pl-chevron { font-size:10px; color:var(--text-muted); transition:transform 0.25s; }
+.panel.open .pl-chevron { transform:rotate(180deg); }
+
+.pl-body { max-height:0; overflow:hidden; transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1); border-top:0px solid var(--border); }
+.panel.open .pl-body { max-height:420px; border-top:1px solid var(--border-light); }
+.pl-inner { padding:16px 22px 18px; }
+
+.pr-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.pr-label { font-size:12px; color:var(--text); min-width:90px; font-weight:500; }
+.pr-bar { flex:1; height:4px; background:var(--border-light); border-radius:10px; overflow:hidden; }
+.pr-fill { height:100%; border-radius:10px; }
+.pr-count { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); min-width:18px; text-align:right; }
+
+/* sub-type chips under each bar */
+.pr-chips { display:flex; gap:6px; flex-wrap:wrap; padding:4px 0 10px 100px; }
+.pr-chip { font-size:9px; font-weight:600; padding:2px 8px; border-radius:10px; }
+.chip-c { background:var(--navy-pale); color:var(--navy); }
+.chip-s { background:var(--gold-pale);  color:var(--gold); }
+.chip-d { background:rgba(138,74,58,0.1); color:#8a4a3a; }
+
+/* Stats panel */
+.stats-header { padding:16px 22px 0; }
+.stats-title  { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); }
+.stats-body   { padding:8px 22px 16px; }
+.stat-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:9px 0; border-bottom:1px solid var(--border-light);
+}
+.stat-row:last-child { border-bottom:none; }
+.stat-label { font-size:12px; color:var(--text-muted); }
+.stat-val   { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; color:var(--navy); }
+.stat-meta  { padding:12px 22px 14px; border-top:1px solid var(--border-light); font-size:11px; color:var(--text-muted); line-height:1.8; }
+.stat-meta span { color:var(--text); font-weight:500; }
+
+/* ─── FOOTER ─── */
+.footer { padding:16px 48px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+.footer p   { font-size:11px; color:var(--text-muted); }
+.footer .logo { font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--navy); font-weight:600; letter-spacing:0.1em; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.campaign-block { animation:fadeUp 0.4s ease both; }
+.kpi-grid       { animation:fadeUp 0.4s ease 0.1s both; }
+.table-wrap     { animation:fadeUp 0.4s ease 0.2s both; }
+.bottom         { animation:fadeUp 0.4s ease 0.3s both; }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <div class="header-left">
+    <h1>CIP <em>Infrastructure VI</em> — Zurich Roundtable</h1>
+    <p>Outreach Tracking Dashboard · NIO Partners</p>
+  </div>
+  <div class="header-right">
+    <div class="header-meta">
+      <span class="meta-label">Market</span>
+      <span class="meta-value">Switzerland</span>
+      <span class="meta-sub">MFO · SFO · Pension · Priv. Bank · IAM</span>
+    </div>
+    <div class="header-meta" style="border-left:1px solid rgba(255,255,255,0.08);padding-left:36px;margin-left:-12px;">
+      <span class="meta-label">Event Date</span>
+      <span class="meta-value">15 April 2026</span>
+      <span class="meta-sub">25 days remaining</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ═══ 1. CAMPAIGN TIMELINE ═══ -->
+<div class="campaign-block">
+  <div class="sec-label">Campaign Outreach Timeline</div>
+  <div class="ctl-card">
+    <div class="ctl-backbone">
+      <div class="ctl-backbone-fill"></div>
+      <div class="ctl-backbone-rest"></div>
+    </div>
+    <div class="ctl-rail">
+
+      <div class="ctl-step">
+        <div class="ctl-node done">✓</div>
+        <div class="ctl-step-body">
+          <div class="ctl-step-num done">Step ①</div>
+          <div class="ctl-step-title">Invite Email</div>
+          <div class="ctl-step-desc">Sent to all 21 contacts</div>
+          <div class="ctl-step-date done">10 March 2026</div>
+        </div>
+      </div>
+
+      <div class="ctl-step">
+        <div class="ctl-node done">✓</div>
+        <div class="ctl-step-body">
+          <div class="ctl-step-num done">Step ②</div>
+          <div class="ctl-step-title">1st Follow-Up Direct</div>
+          <div class="ctl-step-desc">All 21 contacts reached</div>
+          <div class="ctl-step-date done">11 – 19 March 2026</div>
+        </div>
+      </div>
+
+      <div class="ctl-step">
+        <div class="ctl-node active">→</div>
+        <div class="ctl-step-body">
+          <div class="ctl-step-num active">Step ③ · Active Now</div>
+          <div class="ctl-step-title">2nd Follow-Up Email</div>
+          <div class="ctl-step-desc">14 open contacts</div>
+          <div class="ctl-step-date active">To be sent · w/c 23 Mar</div>
+        </div>
+      </div>
+
+      <div class="ctl-step">
+        <div class="ctl-node future">4</div>
+        <div class="ctl-step-body">
+          <div class="ctl-step-num future">Step ④</div>
+          <div class="ctl-step-title future">3rd Follow-Up Direct</div>
+          <div class="ctl-step-desc">Final push before event</div>
+          <div class="ctl-step-date future">w/c 7 April 2026</div>
+        </div>
+      </div>
+
+      <div class="ctl-event">
+        <div class="ctl-event-node">★</div>
+        <div class="ctl-event-body">
+          <div class="ctl-event-label">Destination</div>
+          <div class="ctl-event-title">CIP Breakfast</div>
+          <div class="ctl-step-desc" style="text-align:center;margin-top:3px">Zurich Roundtable</div>
+          <div class="ctl-event-date">15 April 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 2. KPI TILES ═══ -->
+<div class="kpi-grid">
+
+  <div class="kpi-tile confirmed">
+    <div class="kpi-accent"></div>
+    <div class="kpi-top">
+      <div>
+        <div class="kpi-label">Confirmed Attendees</div>
+        <div class="kpi-num">3</div>
+        <div class="kpi-sub">Registered for April 15</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-tile progress expandable" onclick="this.classList.toggle('open');this.querySelector('.kpi-expand').style.maxHeight=this.classList.contains('open')?'220px':'0'">
+    <div class="kpi-accent"></div>
+    <div class="kpi-top">
+      <div>
+        <div class="kpi-label">In Progress</div>
+        <div class="kpi-num">8</div>
+        <div class="kpi-sub expand-hint">2nd follow-up required · click to expand</div>
+      </div>
+      <span class="kpi-chevron">▼</span>
+    </div>
+    <div class="kpi-expand">
+      <div class="kpi-expand-inner">
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Multi Family Office</span><span class="kpi-bd-count">4</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Single Family Office</span><span class="kpi-bd-count">1</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Pension Fund</span><span class="kpi-bd-count">1</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Private Bank</span><span class="kpi-bd-count">1</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">IAM</span><span class="kpi-bd-count">1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-tile soft expandable" onclick="this.classList.toggle('open');this.querySelector('.kpi-expand').style.maxHeight=this.classList.contains('open')?'220px':'0'">
+    <div class="kpi-accent"></div>
+    <div class="kpi-top">
+      <div>
+        <div class="kpi-label">Soft Interest</div>
+        <div class="kpi-num">6</div>
+        <div class="kpi-sub expand-hint">Tentative or reviewing · click to expand</div>
+      </div>
+      <span class="kpi-chevron">▼</span>
+    </div>
+    <div class="kpi-expand">
+      <div class="kpi-expand-inner">
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Single Family Office</span><span class="kpi-bd-count">3</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Multi Family Office</span><span class="kpi-bd-count">2</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Pension Fund</span><span class="kpi-bd-count">1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-tile declined expandable" onclick="this.classList.toggle('open');this.querySelector('.kpi-expand').style.maxHeight=this.classList.contains('open')?'220px':'0'">
+    <div class="kpi-accent"></div>
+    <div class="kpi-top">
+      <div>
+        <div class="kpi-label">Declined</div>
+        <div class="kpi-num">7</div>
+        <div class="kpi-sub expand-hint">Hard declines · click to expand</div>
+      </div>
+      <span class="kpi-chevron">▼</span>
+    </div>
+    <div class="kpi-expand">
+      <div class="kpi-expand-inner">
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Multi Family Office</span><span class="kpi-bd-count">4</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Single Family Office</span><span class="kpi-bd-count">2</span></div>
+        <div class="kpi-bd-row"><span class="kpi-bd-type">Pension Fund</span><span class="kpi-bd-count">1</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ 3. TABLE ═══ -->
+<div class="sec-label">Per-Contact Outreach Status</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Own.</th><th>Company</th><th>Contact</th><th>Type</th><th>Ticket</th>
+        <th>① Invite &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ② 1st FU Direct &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ③ 2nd FU Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ④ 3rd FU Direct</th>
+        <th class="c">Status</th><th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- ── Active contacts ── -->
+<tr><td><span class="own">RK</span></td><td>Regotis Advisory AG</td><td>Caroline Selsas</td><td><span class="badge b-sfo">SFO</span></td><td><span class="mono">CHF 1M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">17 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-s">Soft Interest</span></td>
+<td><span class="note">Will discuss with G. Bäumerich and come back</span></td></tr>
+
+<tr><td><span class="own">RK</span></td><td>Regotis Advisory AG</td><td>Gregor Bäumrich</td><td><span class="badge b-sfo">SFO</span></td><td><span class="mono">CHF 1M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">17 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-s">Soft Interest</span></td>
+<td><span class="note">Discussing internally — awaiting feedback</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Arabella FO</td><td>Jens Dreifuss</td><td><span class="badge b-sfo">SFO</span></td><td><span class="mono">CHF 1M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">18 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-s">Soft Interest</span></td>
+<td><span class="note">Not in scope now — discuss at next in-person</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Avalor</td><td>Carole Müller-Wildi</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">Called, not available — call again next week</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>PK Manor</td><td>Lukas Gisler</td><td><span class="badge b-pen">Pension</span></td><td><span class="mono">CHF 5M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">Called, not available — call again next week</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Neue Privat Bank</td><td>Andre Huwiler</td><td><span class="badge b-pb">Priv. Bank</span></td><td><span class="mono">CHF 5M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">18 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">E-mailed based on last meeting</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Finad</td><td>Jan Hüsler</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">Called, not available — call again next week</span></td></tr>
+
+<tr><td><span class="own">RK</span></td><td>Baseline Wealth</td><td>Leo Steiner</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">18 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">Called, not available — call again next week</span></td></tr>
+
+<tr><td><span class="own">RK</span></td><td>Erlen Capital Mgmt</td><td>Bruno Schneller</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">12 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">Not available — try to setup individual meeting</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Amana Family Office</td><td>Katrin Nueesch</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-s">Soft Interest</span></td>
+<td><span class="note">Could be of interest — discussing internally</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Pensionskasse Bühler</td><td>Patrik Affentranger</td><td><span class="badge b-pen">Pension</span></td><td><span class="mono">CHF 5M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-s">Soft Interest</span></td>
+<td><span class="note">At upper Infra limit. New ALM study Q1 end</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>VermögensPartner</td><td>Roman Limacher</td><td><span class="badge b-iam">IAM</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">Called, not available — call again next week</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Cite Gestion</td><td>Thomas Schnurrenberger</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-s">Soft Interest</span></td>
+<td><span class="note">Tentative conflict — will join if it moves</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>EBG-IS</td><td>Ralph Kretschmer</td><td><span class="badge b-sfo">SFO</span></td><td><span class="mono">CHF 1M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln next">→</div><div class="tln-name next">③ 2nd FU Email</div><div class="tln-date next">To be sent</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln later">4</div><div class="tln-name later">④ 3rd FU Direct</div><div class="tln-date later">w/c 7 Apr</div></div>
+</div></td>
+<td class="c"><span class="stat s-p">In Progress</span></td>
+<td><span class="note">Called, not available — call again next week</span></td></tr>
+
+<!-- Declined separator -->
+<tr class="declined-sep"><td colspan="8">▸ Declined (7) — Outreach closed</td></tr>
+
+<tr><td><span class="own">RK</span></td><td>VermögensPartner</td><td>Cyril König</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">17 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">③ Closed</div><div class="tln-date off">—</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">④ Closed</div><div class="tln-date off">—</div></div>
+</div></td>
+<td class="c"><span class="stat s-d">Declined</span></td><td><span class="note">No PM investments (closed-ended/evergreens)</span></td></tr>
+
+<tr><td><span class="own">RK</span></td><td>Revor Pensionskasse</td><td>Georg Dubach</td><td><span class="badge b-pen">Pension</span></td><td><span class="mono">CHF 5M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">18 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">③ Closed</div><div class="tln-date off">—</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">④ Closed</div><div class="tln-date off">—</div></div>
+</div></td>
+<td class="c"><span class="stat s-d">Declined</span></td><td><span class="note">Only via PPCmetrics and official banks</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>MMG</td><td>Sandro Fröhlich</td><td><span class="badge b-sfo">SFO</span></td><td><span class="mono">CHF 1M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">12 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">③ Closed</div><div class="tln-date off">—</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">④ Closed</div><div class="tln-date off">—</div></div>
+</div></td>
+<td class="c"><span class="stat s-d">Declined</span></td><td><span class="note">Has another engagement at this time</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Actieninvest</td><td>Philipp Uthoff</td><td><span class="badge b-sfo">SFO</span></td><td><span class="mono">CHF 1M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">12 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">③ Closed</div><div class="tln-date off">—</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">④ Closed</div><div class="tln-date off">—</div></div>
+</div></td>
+<td class="c"><span class="stat s-d">Declined</span></td><td><span class="note">Personal circumstances — cannot attend</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Oslo Family Office</td><td>Lukas Kummer</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">12 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">③ Closed</div><div class="tln-date off">—</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">④ Closed</div><div class="tln-date off">—</div></div>
+</div></td>
+<td class="c"><span class="stat s-d">Declined</span></td><td><span class="note">Attends another event on that day</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Survista</td><td>Christian Tanner</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">11 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">③ Closed</div><div class="tln-date off">—</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">④ Closed</div><div class="tln-date off">—</div></div>
+</div></td>
+<td class="c"><span class="stat s-d">Declined</span></td><td><span class="note">Not in Zurich on that day</span></td></tr>
+
+<tr><td><span class="own">CK</span></td><td>Aretas Capital Mgmt</td><td>Renato Angelico</td><td><span class="badge b-mfo">MFO</span></td><td><span class="mono">CHF 3M</span></td>
+<td><div class="tl">
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">① Invite</div><div class="tln-date done">10 Mar</div></div>
+  <div class="tll done"></div>
+  <div class="tlw"><div class="tln done">✓</div><div class="tln-name done">② 1st FU Direct</div><div class="tln-date done">19 Mar</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">③ Closed</div><div class="tln-date off">—</div></div>
+  <div class="tll pending"></div>
+  <div class="tlw"><div class="tln off">—</div><div class="tln-name off">④ Closed</div><div class="tln-date off">—</div></div>
+</div></td>
+<td class="c"><span class="stat s-d">Declined</span></td><td><span class="note">Moving offices — not available for events</span></td></tr>
+
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ 4. BOTTOM PANELS ═══ -->
+<div class="bottom">
+
+  <!-- Pipeline breakdown — collapsible, starts open -->
+  <div class="panel open" id="plPanel">
+    <div class="pl-trigger" onclick="togglePL()">
+      <span class="pl-trigger-label">Pipeline Breakdown — 21 Contacts</span>
+      <span class="pl-chevron">▼</span>
+    </div>
+    <div class="pl-body" id="plBody" style="max-height:420px;border-top:1px solid var(--border-light)">
+      <div class="pl-inner">
+        <div class="pr-row">
+          <div class="pr-label" style="color:var(--olive);font-weight:600">Confirmed</div>
+          <div class="pr-bar"><div class="pr-fill" style="width:14.3%;background:var(--olive)"></div></div>
+          <div class="pr-count">3</div>
+        </div>
+        <div class="pr-chips"><span class="pr-chip chip-c">All types</span></div>
+
+        <div class="pr-row">
+          <div class="pr-label" style="color:var(--navy);font-weight:600">In Progress</div>
+          <div class="pr-bar"><div class="pr-fill" style="width:38.1%;background:var(--navy)"></div></div>
+          <div class="pr-count">8</div>
+        </div>
+        <div class="pr-chips">
+          <span class="pr-chip chip-c">MFO 4</span>
+          <span class="pr-chip chip-c">SFO 1</span>
+          <span class="pr-chip chip-c">Pension 1</span>
+          <span class="pr-chip chip-c">Priv. Bank 1</span>
+          <span class="pr-chip chip-c">IAM 1</span>
+        </div>
+
+        <div class="pr-row">
+          <div class="pr-label" style="color:var(--gold);font-weight:600">Soft Interest</div>
+          <div class="pr-bar"><div class="pr-fill" style="width:28.6%;background:var(--gold)"></div></div>
+          <div class="pr-count">6</div>
+        </div>
+        <div class="pr-chips">
+          <span class="pr-chip chip-s">SFO 3</span>
+          <span class="pr-chip chip-s">MFO 2</span>
+          <span class="pr-chip chip-s">Pension 1</span>
+        </div>
+
+        <div class="pr-row">
+          <div class="pr-label" style="color:#8a4a3a;font-weight:600">Declined</div>
+          <div class="pr-bar"><div class="pr-fill" style="width:33.3%;background:#8a4a3a"></div></div>
+          <div class="pr-count">7</div>
+        </div>
+        <div class="pr-chips">
+          <span class="pr-chip chip-d">MFO 4</span>
+          <span class="pr-chip chip-d">SFO 2</span>
+          <span class="pr-chip chip-d">Pension 1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email stats -->
+  <div class="panel">
+    <div class="stats-header" style="padding:16px 22px 0">
+      <div class="stats-title">Email Campaign — March 10 Invite Blast</div>
+    </div>
+    <div class="stats-body" style="padding:8px 22px 0">
+      <div class="stat-row"><span class="stat-label">Total Recipients</span><span class="stat-val">282</span></div>
+      <div class="stat-row"><span class="stat-label">Successfully Delivered</span><span class="stat-val">282</span></div>
+      <div class="stat-row"><span class="stat-label">Delivery Rate</span><span class="stat-val">100%</span></div>
+      <div class="stat-row"><span class="stat-label">Confirmed Attendees</span><span class="stat-val">3</span></div>
+      <div class="stat-row"><span class="stat-label">Conversion Rate</span><span class="stat-val">1.1%</span></div>
+    </div>
+    <div class="stat-meta">
+      <div>Market: <span>Switzerland</span></div>
+      <div>Investor types: <span>MFO · SFO · Pension · Private Bank · IAM</span></div>
+      <div>Sent: <span>10 March 2026</span></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="footer">
+  <p>Generated · 21 March 2026 · NIO Partners Internal Use Only</p>
+  <span class="logo">NIO Partners</span>
+</div>
+
+<script>
+function togglePL() {
+  const panel = document.getElementById('plPanel');
+  const body  = document.getElementById('plBody');
+  const chev  = panel.querySelector('.pl-chevron');
+  const open  = panel.classList.toggle('open');
+  body.style.maxHeight  = open ? '420px' : '0';
+  body.style.borderTop  = open ? '1px solid var(--border-light)' : '0px';
+  chev.style.transform  = open ? 'rotate(180deg)' : '';
+}
+// Start open
+document.getElementById('plBody').style.maxHeight = '420px';
+document.getElementById('plPanel').querySelector('.pl-chevron').style.transform = 'rotate(180deg)';
+</script>
+</body>
+</html>
