@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>NIO Partners – Executive Dashboard</title>
@@ -20,7 +20,7 @@
 
         .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--nio-gold); margin: 40px 0 15px; border-left: 2px solid var(--nio-gold); padding-left: 10px; }
 
-        /* Timelines untereinander */
+        /* Stacked Timelines */
         .card { background: var(--surface); padding: 25px; border: 1px solid var(--border); margin-bottom: 20px; }
         .timeline { display: flex; justify-content: space-between; position: relative; }
         .timeline::before { content: ''; position: absolute; top: 15px; left: 5%; right: 5%; height: 1px; background: var(--border); }
@@ -37,13 +37,14 @@
         .tile-header { padding: 40px 20px; text-align: center; cursor: pointer; transition: background 0.2s; }
         .tile-header:hover { background: rgba(196, 150, 58, 0.05); }
         .tile-val { font-family: 'Cormorant Garamond'; font-size: 64px; color: var(--nio-gold); line-height: 1; }
+        .tile-sub-val { font-size: 14px; color: var(--nio-text); opacity: 0.8; margin-top: -10px; font-weight: 300; }
         .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; opacity: 0.5; }
-        .view-btn { font-size: 8px; color: var(--nio-gold); margin-top: 15px; border: 1px solid var(--nio-gold); padding: 4px 8px; display: inline-block; letter-spacing: 1px; }
+        .view-btn { font-size: 8px; color: var(--nio-gold); margin-top: 15px; border: 1px solid var(--nio-gold); padding: 4px 10px; display: inline-block; letter-spacing: 1px; }
         
-        /* Scroller */
+        /* Scrolling Areas */
         .scroll-area { display: none; padding: 0 20px 20px; max-height: 300px; overflow-y: auto; border-top: 1px solid var(--border); }
-        .scroll-area::-webkit-scrollbar { width: 4px; }
-        .scroll-area::-webkit-scrollbar-thumb { background: var(--nio-gold); }
+        .scroll-area::-webkit-scrollbar { width: 5px; }
+        .scroll-area::-webkit-scrollbar-thumb { background: var(--nio-gold); border-radius: 10px; }
         
         table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; }
         td { padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--nio-text); }
@@ -59,9 +60,9 @@
         .legend-color { width: 7px; height: 7px; border-radius: 50%; margin-right: 10px; }
         .legend-pct { font-weight: 600; color: var(--nio-gold); }
 
-        .detail-view { display: none; margin-top: 20px; border-top: 1px solid var(--nio-gold); padding-top: 15px; max-height: 300px; overflow-y: auto; }
-        .detail-view::-webkit-scrollbar { width: 4px; }
-        .detail-view::-webkit-scrollbar-thumb { background: var(--nio-gold); }
+        .detail-view { display: none; margin-top: 20px; border-top: 1px solid var(--nio-gold); padding-top: 15px; max-height: 350px; overflow-y: auto; }
+        .detail-view::-webkit-scrollbar { width: 5px; }
+        .detail-view::-webkit-scrollbar-thumb { background: var(--nio-gold); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -72,7 +73,7 @@
             <h1>CIP Infrastructure VI</h1>
             <p>Zurich Roundtable Outreach Tracking</p>
         </div>
-        <div class="header-right"><div class="date">15 April 2025</div></div>
+        <div class="header-right"><div class="date">15 APRIL 2025</div></div>
     </header>
 
     <div class="section-title">Timeline Batch 1 (Target: 114)</div>
@@ -104,6 +105,7 @@
         <div class="tile">
             <div class="tile-header" onclick="toggle('acc')">
                 <div class="tile-val">6</div>
+                <div class="tile-sub-val">CHF 4.2B Potential</div>
                 <div class="tile-label">Accepted</div>
                 <div class="view-btn">VIEW DETAILS</div>
             </div>
@@ -127,7 +129,7 @@
         </div>
     </div>
 
-    <div class="section-title">Client Mix (Alphabetical List on Click)</div>
+    <div class="section-title">Client Mix (Click Category for Full List)</div>
     <div class="chart-row">
         <div class="chart-card">
             <div class="chart-flex">
@@ -149,7 +151,6 @@
 <script>
     function toggle(id) { const el = document.getElementById(id); el.style.display = (el.style.display === "block") ? "none" : "block"; }
 
-    // ECHTE DATEN & Alphabetische Sortierung
     const db = {
         acc: ['Amana', 'Arabella FO', 'Avanea PK', 'Elisir Capital', 'Lombard Odier', 'Mutter Asset Management'].sort(),
         dec: ['Actieninvest', 'Aretas Capital', 'Avalor', 'Finad', 'Invest-Partners', 'Oslo Family Office', 'Survista', 'VermögensPartner'].sort(),
@@ -201,7 +202,7 @@
     window.showList = (overlayId, batchKey, label) => {
         const div = document.getElementById(overlayId); const list = db.batches[batchKey][label];
         div.style.display = "block";
-        div.innerHTML = `<div style="font-size:10px; color:#c4963a; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px">${label} (${list.length} Companies)</div>
+        div.innerHTML = `<div style="font-size:10px; color:#c4963a; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px">${label} (${list.length} COMPANIES)</div>
             <table>${list.map(n => `<tr><td>${n}</td></tr>`).join('')}</table>`;
         div.scrollTop = 0;
     };
