@@ -3,161 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIP VI – Zurich Roundtable (Updated)</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>CIP VI – Zurich Executive Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --olive: #4a6741; --olive-mid: #7a9e72; --olive-soft: #b8ceaf; --olive-pale: #dae8d4;
-  --gold: #c4963a; --gold-mid: #d4b06a; --gold-soft: #e8d4a0; --gold-pale: #f4ead0;
-  --navy: #2d3f57; --navy-mid: #4e6a88; --navy-soft: #9ab4cc; --navy-pale: #ccdce8;
-  --blue: #4e7a92; --blue-mid: #7fa8bc; --blue-soft: #b4cdd8; --blue-pale: #d8ecf4;
-  --sage: #6a8f6a; --sage-mid: #94b494; --sage-soft: #bedabe; --sage-pale: #dceadc;
-  --bg: #f5f3ee; --surface: #ffffff; --surface2: #f0ede6; --border: #ddd8cc;
-  --border-light: #e8e4da; --text: #1e2a1e; --text-mid: #4a5240; --text-muted: #8a9080;
-  --c-confirmed: var(--olive); --c-progress: var(--navy); --c-soft: var(--gold); --c-declined: #8a4a3a;
-  --c-confirmed-bg: rgba(74,103,65,0.08); --c-progress-bg: rgba(45,63,87,0.08);
-  --c-soft-bg: rgba(196,150,58,0.1); --c-declined-bg: rgba(138,74,58,0.08);
+  --olive: #4a6741; --gold: #c4963a; --navy: #2d3f57; --blue: #4e7a92;
+  --bg: #f5f3ee; --surface: #ffffff; --border: #ddd8cc;
+  --text: #1e2a1e; --text-muted: #8a9080;
 }
-* { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:13px; line-height:1.5; }
-.header { background: var(--navy); padding: 0 48px; display: flex; align-items: stretch; justify-content: space-between; position: relative; overflow: hidden; }
-.header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--olive) 0%, var(--gold) 40%, var(--blue) 80%, transparent 100%); }
-.header-left { padding: 28px 0; border-right: 1px solid rgba(255,255,255,0.08); padding-right: 40px; }
-.header-left h1 { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:#fff; letter-spacing:0.01em; line-height:1.1; }
-.header-left h1 em { color:var(--gold-mid); font-style:normal; }
-.header-left p { color:var(--navy-soft); font-size:11px; margin-top:5px; text-transform:uppercase; letter-spacing:0.1em; font-weight:400; }
-.header-right { display:flex; align-items:center; gap:48px; padding: 28px 0 28px 40px; }
-.header-meta { text-align:right; }
-.header-meta .meta-label { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--navy-soft); font-weight:500; }
-.header-meta .meta-value { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--gold-mid); font-weight:600; line-height:1.1; display:block; margin-top:2px; }
-.header-meta .meta-sub { font-size:11px; color:var(--navy-soft); margin-top:2px; }
-.main { padding:32px 48px; max-width:1700px; }
-.sec-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.14em; color:var(--text-muted); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
-.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
-.campaign-block { margin-bottom:32px; }
-.ctl-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px 44px 32px; position: relative; overflow: hidden; }
-.ctl-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--olive) 0%, var(--olive) 50%, var(--gold) 50%, var(--gold) 75%, var(--border) 75%); }
-.ctl-rail { display:flex; align-items:flex-start; position:relative; padding-top:4px; }
-.ctl-backbone { position:absolute; top: 30px; left: 30px; right: 96px; height: 2px; z-index:0; }
-.ctl-backbone-fill { position:absolute; top:0; left:0; height:2px; width: 75%; background: var(--olive); }
-.ctl-backbone-rest { position:absolute; top:0; left:75%; right:0; height:2px; background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 6px, transparent 6px, transparent 12px); }
-.ctl-backbone::after { content:''; position:absolute; right:-14px; top:-7px; border-top:9px solid transparent; border-bottom:9px solid transparent; border-left:15px solid var(--border); }
-.ctl-step { display:flex; flex-direction:column; align-items:center; flex:1; position:relative; z-index:1; }
-.ctl-node { width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; transition: transform 0.2s; cursor:default; }
-.ctl-node.done { background: var(--c-confirmed-bg); border: 2px solid var(--olive); color: var(--olive); box-shadow: 0 0 0 6px rgba(74,103,65,0.06); }
-.ctl-node.active { background: var(--c-soft-bg); border: 2px solid var(--gold); color: var(--gold); box-shadow: 0 0 0 6px rgba(196,150,58,0.08); animation: ctlPulse 2.5s ease-in-out infinite; }
-.ctl-node.future { background: var(--surface2); border: 2px dashed var(--border); color: var(--text-muted); }
-@keyframes ctlPulse { 0%,100% { box-shadow:0 0 0 6px rgba(196,150,58,0.08); } 50% { box-shadow:0 0 0 12px rgba(196,150,58,0.14); } }
-.ctl-step-body { margin-top:14px; text-align:center; }
-.ctl-step-num { display:inline-block; font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px; padding:2px 8px; border-radius:20px; }
-.ctl-step-num.done { background:var(--c-confirmed-bg); color:var(--olive); }
-.ctl-step-num.active { background:var(--c-soft-bg); color:var(--gold); }
-.ctl-step-title { font-size:13px; font-weight:600; color:var(--text); }
-.ctl-step-date { margin-top:6px; font-family:'JetBrains Mono',monospace; font-size:10px; padding:3px 10px; border-radius:4px; display:inline-block; }
-.ctl-step-date.done { background:var(--olive-pale); color:var(--olive); }
-.ctl-step-date.active { background:var(--gold-pale); color:var(--gold); }
-.ctl-event { display:flex; flex-direction:column; align-items:center; padding-left:20px; position:relative; z-index:1; flex-shrink:0; }
-.ctl-event-node { width:60px; height:60px; border-radius:10px; background:var(--gold-pale); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; font-size:22px; }
-.kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:28px; }
-.kpi-tile { background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-.kpi-top { padding:20px 22px 16px; position:relative; }
-.kpi-accent { position:absolute; top:0; left:0; right:0; height:3px; }
-.kpi-tile.confirmed .kpi-accent { background:var(--olive); }
-.kpi-tile.progress .kpi-accent { background:var(--navy); }
-.kpi-tile.soft .kpi-accent { background:var(--gold); }
-.kpi-tile.declined .kpi-accent { background:#8a4a3a; }
-.kpi-num { font-family:'Cormorant Garamond',serif; font-size:52px; font-weight:700; line-height:1; }
-.kpi-tile.confirmed .kpi-num { color:var(--olive); }
-.table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow-x:auto; margin-bottom:28px; }
-table { width:100%; border-collapse:collapse; min-width:1000px; }
-th { padding:12px; font-size:10px; text-transform:uppercase; color:var(--text-muted); text-align:left; background:var(--surface2); }
-td { padding:12px; border-bottom:1px solid var(--border-light); }
-.badge { font-size:9px; font-weight:600; padding:2px 7px; border-radius:3px; text-transform:uppercase; }
-.b-iam { background:var(--sage-pale); color:var(--sage); }
-.b-mfo { background:var(--blue-pale); color:var(--blue); }
-.stat { font-size:10px; font-weight:600; padding:4px 10px; border-radius:4px; }
-.s-c { background:var(--c-confirmed-bg); color:var(--olive); }
-.s-p { background:var(--c-progress-bg); color:var(--navy); }
-.s-d { background:var(--c-declined-bg); color:#8a4a3a; }
-.footer { padding:16px 48px; border-top:1px solid var(--border); display:flex; justify-content:space-between; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); margin:0; font-size:13px; line-height:1.4; }
+.header { background: var(--navy); padding: 25px 48px; color: white; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--gold); }
+.header h1 { font-family:'Cormorant Garamond',serif; margin:0; font-size:26px; }
+.main { padding: 32px 48px; max-width: 1400px; margin: auto; }
+
+.section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.section-title::after { content:''; flex:1; height:1px; background: var(--border); }
+
+/* Timeline with reflected Multi-Day Windows */
+.timeline-card { background: var(--surface); border: 1px solid var(--border); padding: 35px 30px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.tl-container { display: flex; justify-content: space-between; position: relative; }
+.tl-line { position: absolute; top: 40px; left: 5%; right: 5%; height: 2px; background: #eee; z-index: 1; }
+.tl-progress { position: absolute; top: 40px; left: 5%; width: 55%; height: 2px; background: var(--olive); z-index: 2; }
+.tl-item { position: relative; z-index: 3; text-align: center; width: 20%; }
+.tl-dot { width: 32px; height: 32px; background: white; border: 2px solid var(--olive); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: var(--olive); }
+.tl-dot.active { background: var(--gold); border-color: var(--gold); color: white; box-shadow: 0 0 0 4px rgba(196,150,58,0.2); }
+.tl-range { font-family: 'JetBrains Mono'; font-size: 9px; color: var(--olive); background: var(--bg); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; font-weight: 600; }
+.tl-label { font-weight: 600; color: var(--navy); font-size: 12px; }
+.tl-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 32px; }
+.kpi-tile { background: white; border: 1px solid var(--border); padding: 18px; border-radius: 8px; border-top: 3px solid var(--border); }
+.kpi-tile.confirmed { border-top-color: var(--olive); }
+.kpi-tile.gold { border-top-color: var(--gold); }
+.kpi-val { font-family: 'Cormorant Garamond'; font-size: 32px; font-weight: 700; display: block; margin-top: 4px; }
+.kpi-label { font-size: 9px; text-transform: uppercase; font-weight: 600; color: var(--text-muted); }
+
+.chart-card { background: white; border: 1px solid var(--border); padding: 24px; border-radius: 12px; margin-top: 24px; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-left">
-    <h1>CIP <em>Infrastructure VI</em> — Zurich Roundtable</h1>
-    <p>Outreach Tracking Dashboard · Updated Status</p>
+  <div>
+    <h1>CIP VI — Zurich Campaign Intelligence</h1>
+    <div style="font-size: 10px; color: var(--gold-soft); margin-top: 4px; font-weight: 600;">GLOBAL REACH: 452 INVITEES · ZURICH POOL: 65</div>
   </div>
-  <div class="header-right">
-    <div class="header-meta">
-      <span class="meta-label">Market</span>
-      <span class="meta-value">Switzerland</span>
-      <span class="meta-sub">IAM · MFO · Pension · SFO</span>
-    </div>
-    <div class="header-meta" style="border-left:1px solid rgba(255,255,255,0.08);padding-left:36px;">
-      <span class="meta-label">Event Date</span>
-      <span class="meta-value">15 April 2026</span>
-      <span class="meta-sub">14 days remaining</span>
-    </div>
+  <div style="text-align: right;">
+    <div style="font-size: 9px; opacity: 0.7; letter-spacing: 1px;">ROUNDTABLE DATE</div>
+    <div style="font-family: 'Cormorant Garamond'; font-size: 22px; color: var(--gold);">15 April 2026</div>
   </div>
 </div>
 
 <div class="main">
 
-<div class="campaign-block">
-  <div class="sec-label">Campaign Outreach Timeline</div>
-  <div class="ctl-card">
-    <div class="ctl-backbone"><div class="ctl-backbone-fill"></div></div>
-    <div class="ctl-rail">
-      <div class="ctl-step">
-        <div class="ctl-node done">✓</div>
-        <div class="ctl-step-body"><div class="ctl-step-num done">Step 1</div><div class="ctl-step-title">Invite Sent</div><div class="ctl-step-date done">10 March 2026</div></div>
+  <div class="section-title">Outreach Timeline & Frequency (Zurich Focus)</div>
+  <div class="timeline-card">
+    <div class="tl-container">
+      <div class="tl-line"></div>
+      <div class="tl-progress"></div>
+      
+      <div class="tl-item">
+        <span class="tl-range">10.03 – 12.03</span>
+        <div class="tl-dot">✓</div>
+        <div class="tl-label">Initial Invite</div>
+        <div class="tl-sub">65 Contacts</div>
       </div>
-      <div class="ctl-step">
-        <div class="ctl-node done">✓</div>
-        <div class="ctl-step-body"><div class="ctl-step-num done">Step 2</div><div class="ctl-step-title">1st Follow-Up</div><div class="ctl-step-date done">Completed</div></div>
+
+      <div class="tl-item">
+        <span class="tl-range">17.03 – 21.03</span>
+        <div class="tl-dot">✓</div>
+        <div class="tl-label">1. Follow-Up</div>
+        <div class="tl-sub">Direct Calls</div>
       </div>
-      <div class="ctl-step">
-        <div class="ctl-node active">→</div>
-        <div class="ctl-step-body"><div class="ctl-step-num active">Step 3</div><div class="ctl-step-title">2nd Follow-Up</div><div class="ctl-step-date active">Active Now</div></div>
+
+      <div class="tl-item">
+        <span class="tl-range">23.03 – 26.03</span>
+        <div class="tl-dot active">→</div>
+        <div class="tl-label">2. Follow-Up</div>
+        <div class="tl-sub">Email Campaign</div>
       </div>
-      <div class="ctl-event">
-        <div class="ctl-event-node">★</div>
-        <div class="ctl-event-body"><div class="ctl-event-title">Roundtable</div><div class="ctl-step-date">15 April 2026</div></div>
+
+      <div class="tl-item" style="opacity: 0.4;">
+        <span class="tl-range">Planned: 07.04</span>
+        <div class="tl-dot">4</div>
+        <div class="tl-label">Final Call</div>
+        <div class="tl-sub">RSVP Check</div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-range" style="background:var(--gold-pale); color:var(--gold);">15.04.2026</span>
+        <div class="tl-dot" style="border-style: dashed; color: var(--gold); border-color: var(--gold);">★</div>
+        <div class="tl-label" style="color: var(--gold);">Event Day</div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="kpi-grid">
-  <div class="kpi-tile confirmed"><div class="kpi-accent"></div><div class="kpi-top"><div class="kpi-label">Confirmed</div><div class="kpi-num">7</div><div class="kpi-sub">Attendees registered</div></div></div>
-  <div class="kpi-tile progress"><div class="kpi-accent"></div><div class="kpi-top"><div class="kpi-label">In Progress</div><div class="kpi-num">33</div><div class="kpi-sub">Awaiting feedback</div></div></div>
-  <div class="kpi-tile declined"><div class="kpi-accent"></div><div class="kpi-top"><div class="kpi-label">Declined</div><div class="kpi-num">10</div><div class="kpi-sub">Total cancellations</div></div></div>
-</div>
+  <div class="section-title">Zurich Performance Metrics</div>
+  <div class="kpi-grid">
+    <div class="kpi-tile confirmed">
+      <span class="kpi-label">Confirmed</span>
+      <span class="kpi-val" style="color: var(--olive);">7</span>
+      <span class="kpi-sub" style="font-size:10px; color:var(--text-muted);">Attendees</span>
+    </div>
+    <div class="kpi-tile gold">
+      <span class="kpi-label">Confirmed Vol.</span>
+      <span class="kpi-val" style="color: var(--gold);">31.0M</span>
+      <span class="kpi-sub" style="font-size:10px; color:var(--text-muted);">CHF Ticket Size</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Soft Interest</span>
+      <span class="kpi-val">7</span>
+      <span class="kpi-sub" style="font-size:10px; color:var(--text-muted);">Engaged</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">No Answer</span>
+      <span class="kpi-val" style="color: var(--blue);">33</span>
+      <span class="kpi-sub" style="font-size:10px; color:var(--text-muted);">Pending</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Declined</span>
+      <span class="kpi-val" style="color: #8a4a3a;">18</span>
+      <span class="kpi-sub" style="font-size:10px; color:var(--text-muted);">Total Outs</span>
+    </div>
+    <div class="kpi-tile" style="background: var(--navy); color: white; border: none;">
+      <span class="kpi-label" style="color: rgba(255,255,255,0.6);">Global Total</span>
+      <span class="kpi-val">452</span>
+      <span class="kpi-sub" style="color: rgba(255,255,255,0.5);">Invitee List</span>
+    </div>
+  </div>
 
-<div class="sec-label">Contact Outreach Status (Extract)</div>
-<div class="table-wrap">
-  <table>
-    <thead>
-      <tr><th>Company</th><th>Contact</th><th>Type</th><th>Status</th><th>Notes</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Swisspartners</td><td>Reto Jauch</td><td><span class="badge b-iam">IAM</span></td><td><span class="stat s-c">Confirmed</span></td><td>Confirmed via Email</td></tr>
-      <tr><td>Swisspartners</td><td>Konstantin Wyser</td><td><span class="badge b-iam">IAM</span></td><td><span class="stat s-c">Confirmed</span></td><td>Confirmed via Email</td></tr>
-      <tr><td>Kieger AG</td><td>Monika Schuler</td><td><span class="badge b-mfo">MFO</span></td><td><span class="stat s-c">Confirmed</span></td><td>Confirmed via Email</td></tr>
-      <tr><td>Insch Capital Management</td><td>Christopher Cruden</td><td><span class="badge b-iam">IAM</span></td><td><span class="stat s-p">In Progress</span></td><td>No answer yet</td></tr>
-      <tr><td>VT Wealth</td><td>Sacha Fedier</td><td><span class="badge b-iam">IAM</span></td><td><span class="stat s-d">Declined</span></td><td>Busy on 15.04</td></tr>
-      <tr><td>Veraison</td><td>Gregor Greber</td><td><span class="badge b-iam">IAM</span></td><td><span class="stat s-p">In Progress</span></td><td>Interested, pending date check</td></tr>
-    </tbody>
-  </table>
-</div>
+  <div class="chart-card">
+    <div class="section-title" style="margin-bottom:10px;">CEO Strategic Assessment</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+      <div style="line-height: 1.6;">
+        <p>• <strong>High-Volume Outreach:</strong> Mit 452 Einladungen global ist die Marktdurchdringung sehr hoch. In Zürich werden 65 Kontakte (14%) intensiv bearbeitet.</p>
+        <p>• <strong>Follow-Up Intensity:</strong> Der 1. Follow-Up wurde über 5 Tage gestreckt, was auf eine hohe individuelle Gesprächsdauer hindeutet.</p>
+      </div>
+      <div style="line-height: 1.6;">
+        <p>• <strong>Asset Quality:</strong> Die 7 Bestätigungen repräsentieren ein durchschnittliches Ticket von 4.4M CHF. Der Fokus liegt nun auf dem Abschluss der „Soft Interest“ Pipeline.</p>
+      </div>
+    </div>
+  </div>
 
-</div>
-
-<div class="footer">
-  <p>Status as of: 01 April 2026</p>
-  <span class="logo">NIO Partners</span>
 </div>
 
 </body>
