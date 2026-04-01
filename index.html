@@ -13,38 +13,34 @@
 }
 body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); margin:0; font-size:13px; line-height:1.4; }
 .header { background: var(--navy); padding: 25px 48px; color: white; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--gold); }
-.header h1 { font-family:'Cormorant Garamond',serif; margin:0; font-size:26px; letter-spacing: 1px; }
+.header h1 { font-family:'Cormorant Garamond',serif; margin:0; font-size:26px; }
 .main { padding: 32px 48px; max-width: 1400px; margin: auto; }
 
 .section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 .section-title::after { content:''; flex:1; height:1px; background: var(--border); }
 
-/* Double Pipeline Layout */
-.pipeline-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-.pipe-card { background: white; border: 1px solid var(--border); padding: 24px; border-radius: 12px; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-.pipe-tag { position: absolute; top: -10px; right: 20px; background: var(--gold); color: white; font-size: 9px; padding: 2px 10px; border-radius: 10px; font-weight: 600; text-transform: uppercase; }
-.pipe-tag.new { background: var(--blue); }
-
-.mini-tl { display: flex; align-items: center; gap: 8px; margin-top: 15px; }
-.tl-blob { height: 6px; flex: 1; background: #eee; border-radius: 3px; }
-.tl-blob.active { background: var(--olive); }
-.tl-blob.current { background: var(--gold); animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+/* Timeline Card */
+.timeline-card { background: var(--surface); border: 1px solid var(--border); padding: 35px 30px; border-radius: 12px; margin-bottom: 24px; }
+.tl-container { display: flex; justify-content: space-between; position: relative; }
+.tl-line { position: absolute; top: 40px; left: 5%; right: 5%; height: 2px; background: #eee; z-index: 1; }
+.tl-progress { position: absolute; top: 40px; left: 5%; width: 55%; height: 2px; background: var(--olive); z-index: 2; }
+.tl-item { position: relative; z-index: 3; text-align: center; width: 18%; }
+.tl-dot { width: 32px; height: 32px; background: white; border: 2px solid var(--olive); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: var(--olive); }
+.tl-dot.active { background: var(--gold); border-color: var(--gold); color: white; box-shadow: 0 0 0 4px rgba(196,150,58,0.2); }
+.tl-range { font-family: 'JetBrains Mono'; font-size: 9px; color: var(--olive); background: var(--bg); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 6px; font-weight: 600; }
+.tl-label { font-weight: 600; color: var(--navy); font-size: 12px; }
+.tl-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
 /* KPI Grid */
-.kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-bottom: 32px; }
-.kpi-tile { background: white; border: 1px solid var(--border); padding: 20px; border-radius: 8px; border-top: 4px solid var(--border); }
+.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 32px; }
+.kpi-tile { background: white; border: 1px solid var(--border); padding: 18px; border-radius: 8px; border-top: 3px solid var(--border); }
 .kpi-tile.confirmed { border-top-color: var(--olive); }
-.kpi-tile.institutional { border-top-color: var(--blue); }
-.kpi-val { font-family: 'Cormorant Garamond'; font-size: 34px; font-weight: 700; display: block; margin-top: 5px; }
-.kpi-label { font-size: 9px; text-transform: uppercase; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; }
+.kpi-tile.gold { border-top-color: var(--gold); }
+.kpi-tile.new-batch { border-top-color: var(--blue); }
+.kpi-val { font-family: 'Cormorant Garamond'; font-size: 32px; font-weight: 700; display: block; margin-top: 4px; }
+.kpi-label { font-size: 9px; text-transform: uppercase; font-weight: 600; color: var(--text-muted); }
 
-/* Charts & Lists */
-.dashboard-row { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; margin-top: 24px; }
-.chart-card { background: white; border: 1px solid var(--border); padding: 24px; border-radius: 12px; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th { text-align: left; font-size: 10px; color: var(--text-muted); text-transform: uppercase; padding-bottom: 10px; border-bottom: 1px solid var(--bg); }
-td { padding: 12px 0; border-bottom: 1px solid var(--bg); font-size: 12px; }
+.info-box { background: white; padding: 24px; border-radius: 12px; border: 1px solid var(--border); line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -52,65 +48,79 @@ td { padding: 12px 0; border-bottom: 1px solid var(--bg); font-size: 12px; }
 <div class="header">
   <div>
     <h1>CIP VI — Zurich Campaign Intelligence</h1>
-    <div style="font-size: 10px; color: var(--gold-soft); margin-top: 4px; font-weight: 600; letter-spacing: 1px;">GLOBAL REACH: 452 · ZURICH TOTAL: 123</div>
+    <div style="font-size: 10px; color: var(--gold-soft); margin-top: 4px; font-weight: 600;">GLOBAL: 452 INVITEES · ZURICH: 123 TOTAL</div>
   </div>
   <div style="text-align: right;">
-    <div style="font-size: 9px; opacity: 0.7; letter-spacing: 1px;">DATA AS OF</div>
-    <div style="font-family: 'Cormorant Garamond'; font-size: 22px; color: var(--gold);">01 April 2026</div>
+    <div style="font-size: 9px; opacity: 0.7; letter-spacing: 1px;">ROUNDTABLE DATE</div>
+    <div style="font-family: 'Cormorant Garamond'; font-size: 22px; color: var(--gold);">15 April 2026</div>
   </div>
 </div>
 
 <div class="main">
 
-  <div class="section-title">Pipeline Segmentation (Batch 1 vs. Batch 2)</div>
-  <div class="pipeline-container">
-    <div class="pipe-card">
-      <div class="pipe-tag">Matured Pipeline</div>
-      <div style="font-weight: 600; font-size: 15px; color: var(--navy);">Batch 1: IAM & MFO Focus (Zeile 2-115)</div>
-      <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Contacts: 65 | Outreach: 10.03 – 26.03</div>
-      <div class="mini-tl">
-        <div class="tl-blob active"></div>
-        <div class="tl-blob active"></div>
-        <div class="tl-blob active"></div>
-        <div class="tl-blob current"></div>
+  <div class="section-title">Outreach Timeline (Reflecting Multi-Day Rows)</div>
+  <div class="timeline-card">
+    <div class="tl-container">
+      <div class="tl-line"></div>
+      <div class="tl-progress"></div>
+      
+      <div class="tl-item">
+        <span class="tl-range">10.03 – 12.03</span>
+        <div class="tl-dot">✓</div>
+        <div class="tl-label">Batch 1: Initial</div>
+        <div class="tl-sub">65 Contacts</div>
       </div>
-      <div style="font-size: 10px; margin-top: 10px; color: var(--olive); font-weight: 600;">STATUS: High-Touch Follow-Up Phase</div>
-    </div>
 
-    <div class="pipe-card">
-      <div class="pipe-tag new">Institutional Launch</div>
-      <div style="font-weight: 600; font-size: 15px; color: var(--navy);">Batch 2: Pension Funds & Insurance (Ab Zeile 116)</div>
-      <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Contacts: 58 | Start Date: 01.04.2026</div>
-      <div class="mini-tl">
-        <div class="tl-blob active"></div>
-        <div class="tl-blob"></div>
-        <div class="tl-blob"></div>
-        <div class="tl-blob"></div>
+      <div class="tl-item">
+        <span class="tl-range">17.03 – 21.03</span>
+        <div class="tl-dot">✓</div>
+        <div class="tl-label">1. Follow-Up</div>
+        <div class="tl-sub">Direct Calls</div>
       </div>
-      <div style="font-size: 10px; margin-top: 10px; color: var(--blue); font-weight: 600;">STATUS: Initial Invites Dispatched (Today)</div>
+
+      <div class="tl-item">
+        <span class="tl-range">23.03 – 26.03</span>
+        <div class="tl-dot">✓</div>
+        <div class="tl-label">2. Follow-Up</div>
+        <div class="tl-sub">Email Wave</div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-range" style="background:var(--navy); color:white;">01.04 (Today)</span>
+        <div class="tl-dot active">→</div>
+        <div class="tl-label">Batch 2: Launch</div>
+        <div class="tl-sub">58 Insti-Leads</div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-range" style="color:var(--gold);">15.04.2026</span>
+        <div class="tl-dot" style="border-style: dashed; color: var(--gold); border-color: var(--gold);">★</div>
+        <div class="tl-label">Event Day</div>
+      </div>
     </div>
   </div>
 
   <div class="section-title">Zurich Performance Metrics</div>
   <div class="kpi-grid">
     <div class="kpi-tile confirmed">
-      <span class="kpi-label">Confirmed (Batch 1)</span>
+      <span class="kpi-label">Confirmed (B1)</span>
       <span class="kpi-val" style="color: var(--olive);">7</span>
     </div>
-    <div class="kpi-tile confirmed">
-      <span class="kpi-label">Confirmed Assets</span>
+    <div class="kpi-tile gold">
+      <span class="kpi-label">Confirmed Vol.</span>
       <span class="kpi-val" style="color: var(--gold);">31.0M</span>
-      <span style="font-size: 10px; color: var(--text-muted);">CHF Volume</span>
+    </div>
+    <div class="kpi-tile new-batch">
+      <span class="kpi-label">New Batch (B2)</span>
+      <span class="kpi-val" style="color: var(--blue);">58</span>
     </div>
     <div class="kpi-tile">
       <span class="kpi-label">Soft Interest</span>
       <span class="kpi-val">7</span>
-      <span style="font-size: 10px; color: var(--text-muted);">In Negotiation</span>
     </div>
-    <div class="kpi-tile institutional">
-      <span class="kpi-label">New Batch (B2)</span>
-      <span class="kpi-val" style="color: var(--blue);">58</span>
-      <span style="font-size: 10px; color: var(--text-muted);">Pension/Insti</span>
+    <div class="kpi-tile">
+      <span class="kpi-label">No Answer (B1)</span>
+      <span class="kpi-val" style="color: var(--blue);">33</span>
     </div>
     <div class="kpi-tile" style="background: var(--navy); color: white; border: none;">
       <span class="kpi-label" style="color: rgba(255,255,255,0.6);">Zurich Pool</span>
@@ -118,46 +128,16 @@ td { padding: 12px 0; border-bottom: 1px solid var(--bg); font-size: 12px; }
     </div>
   </div>
 
-  <div class="dashboard-row">
-    <div class="chart-card">
-      <div class="section-title">CEO Priority: Top Pending Institutional (B2)</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Institution</th>
-            <th>Account Type</th>
-            <th style="text-align: right;">Potential Ticket</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Pensionskasse Bosch</strong></td><td>Insti-Pension</td><td style="text-align: right; font-weight: 600; color: var(--gold);">5.0M</td></tr>
-          <tr><td><strong>Raiffeisen Pensionskasse</strong></td><td>Insti-Pension</td><td style="text-align: right; font-weight: 600; color: var(--gold);">5.0M</td></tr>
-          <tr><td><strong>GastroSocial</strong></td><td>Insti-Pension</td><td style="text-align: right; font-weight: 600; color: var(--gold);">5.0M</td></tr>
-          <tr><td><strong>Pensionskasse Georg Fischer</strong></td><td>Insti-Pension</td><td style="text-align: right; font-weight: 600; color: var(--gold);">5.0M</td></tr>
-          <tr><td><strong>Pax Versicherung</strong></td><td>Insti-Pension</td><td style="text-align: right; font-weight: 600; color: var(--gold);">5.0M</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="chart-card" style="background: var(--navy); color: white;">
-      <div class="section-title" style="color: rgba(255,255,255,0.5);">Volume Strategy</div>
-      <div style="margin-top: 20px;">
-        <div style="font-size: 10px; opacity: 0.8;">CURRENT CONFIRMED</div>
-        <div style="font-size: 32px; font-weight: 700; color: var(--gold);">31.0M <span style="font-size:14px;">CHF</span></div>
-        <div style="margin-top: 30px; font-size: 10px; opacity: 0.8;">PIPELINE POTENTIAL (EST.)</div>
-        <div style="font-size: 26px; font-weight: 700; color: var(--gold-soft);">~185.0M <span style="font-size:14px;">CHF</span></div>
-        <div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; margin-top: 15px; position: relative;">
-          <div style="width: 17%; height: 100%; background: var(--gold); border-radius: 5px;"></div>
-        </div>
-        <div style="font-size: 10px; margin-top: 10px; opacity: 0.6;">Conversion Progress: 17% of total potential reached.</div>
+  <div class="info-box">
+    <div class="section-title" style="margin-bottom:10px;">Executive Summary</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+      <div>
+        <p>• <strong>Batch 1 Performance:</strong> Die ersten 65 Kontakte (IAM/MFO) sind durch 3 Wellen gelaufen. Ergebnis: 7 Zusagen, 7 Soft Interest.</p>
+        <p>• <strong>Batch 2 Expansion (Zeile 116+):</strong> Heute wurden 58 zusätzliche institutionelle Kontakte (Pensionskassen) eingeladen.</p>
       </div>
-    </div>
-  </div>
-
-  <div style="margin-top: 32px; background: white; padding: 24px; border-radius: 12px; border: 1px solid var(--border);">
-    <div class="section-title">Strategic CEO Note</div>
-    <div style="line-height: 1.7; font-size: 13px;">
-        Heute wurde Batch 2 (58 Kontakte) gestartet, womit der Fokus nun verstärkt auf grossvolumige institutionelle Anleger (Pensionskassen) rückt. Batch 1 (IAMs) wurde bereits intensiv über drei Wellen bearbeitet, was zu den aktuellen 7 Zusagen geführt hat. Die nächste Phase konzentriert sich auf die Konvertierung der neuen institutionellen Pipeline.
+      <div>
+        <p>• <strong>Workload Reflection:</strong> Die Timeline zeigt nun die realen Zeitspannen der Bearbeitung pro Zeile (z.B. 1. Follow-Up über 5 Tage).</p>
+      </div>
     </div>
   </div>
 
