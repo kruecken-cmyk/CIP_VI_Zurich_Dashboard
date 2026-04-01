@@ -7,15 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cormorant+Garamond:wght@600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-1: #2d3f57; 
-            --color-2: #4a6741; 
-            --color-3: #c4963a;
+            --color-1: #2d3f57; /* Dunkelblau */
+            --color-2: #4a6741; /* Waldgrün */
+            --color-3: #c4963a; /* Gold */
             --bg: #f4f1ea; --surface: #ffffff; --border: #dcd7ca; --text: #1a1a1a;
         }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
         .container { max-width: 1400px; margin: auto; }
         
-        /* Header Blau - Exakt wie im Bild */
         header { 
             background-color: var(--color-1);
             color: white;
@@ -30,20 +29,10 @@
 
         .section-header { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--color-2); margin: 30px 0 15px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
 
-        /* Timeline */
         .card { background: var(--surface); padding: 25px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 25px; }
-        .timeline { display: flex; justify-content: space-between; position: relative; }
-        .timeline::before { content: ''; position: absolute; top: 25px; left: 50px; right: 50px; height: 1px; background: #eee; }
-        .step { position: relative; z-index: 1; text-align: center; flex: 1; }
-        .dot { width: 36px; height: 36px; background: white; border: 2px solid #ddd; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
-        .dot.done { border-color: var(--color-2); color: var(--color-2); background: #f0f7ef; }
-        .dot.active { border-color: var(--color-3); color: var(--color-3); background: #fffdf5; }
-        .step-label { font-size: 10px; font-weight: 600; text-transform: uppercase; }
-        .step-date { font-family: 'JetBrains Mono'; font-size: 9px; color: #999; margin-top: 4px; }
-
-        /* KPI Squares */
+        
         .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; display: flex; flex-direction: column; min-height: 240px; }
+        .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; display: flex; flex-direction: column; }
         .tile-header { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; border-top: 6px solid var(--color-2); }
         .tile-val { font-family: 'Cormorant Garamond'; font-size: 60px; font-weight: bold; }
         .tile-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #777; }
@@ -52,7 +41,6 @@
         table { width: 100%; border-collapse: collapse; font-size: 12px; }
         th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; }
 
-        /* Charts - Same Size */
         .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 40px; }
         .chart-card { background: white; padding: 25px; border-radius: 4px; border: 1px solid var(--border); min-height: 400px; }
         .chart-wrapper { height: 300px; width: 100%; position: relative; }
@@ -75,19 +63,6 @@
         </div>
     </header>
 
-    <div class="section-header">Timeline — Batch 1 (Total: 114)</div>
-    <div class="card">
-        <div class="timeline">
-            <div class="step"><div class="dot done">✓</div><div class="step-label">Invite</div><div class="step-date">10.03 – 12.03</div></div>
-            <div class="step"><div class="dot done">✓</div><div class="step-label">1. FU (Direct)</div><div class="step-date">17.03 – 21.03</div></div>
-            <div class="step"><div class="dot done">✓</div><div class="step-label">2. FU (Email)</div><div class="step-date">23.03 – 26.03</div></div>
-            <div class="step"><div class="dot done">✓</div><div class="step-label">3. FU (Direct)</div><div class="step-date">27.03 – 31.03</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">4. FU (Direct)</div><div class="step-date">07.04 – 10.04</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">Final Conf.</div><div class="step-date">11.04 – 14.04</div></div>
-            <div class="step"><div class="dot active">★</div><div class="step-label">Roundtable</div><div class="step-date">15.04.2025</div></div>
-        </div>
-    </div>
-
     <div class="tile-grid">
         <div class="tile">
             <div class="tile-header" onclick="toggle('acc')">
@@ -96,15 +71,9 @@
                 <div style="font-size:10px; color:#999; margin-top:5px">DETAILS ▼</div>
             </div>
             <div id="acc" class="collapse-content">
-                <table>
-                    <tr><th>Account Name</th><th>Type</th><th>Ticket</th></tr>
-                    <tr><td>Arabella FO</td><td>SFO</td><td>1.0M</td></tr>
-                    <tr><td>Avanea PK</td><td>Pension</td><td>5.0M</td></tr>
-                    <tr><td>Elisir Capital</td><td>SFO</td><td>1.0M</td></tr>
-                    <tr><td>Mutter Asset Management</td><td>MFO</td><td>3.0M</td></tr>
-                    <tr><td>Lombard Odier</td><td>Priv. Bank</td><td>5.0M</td></tr>
-                    <tr><td>Amana</td><td>MFO</td><td>3.0M</td></tr>
-                </table>
+                <table id="table-acc">
+                    <tr><th>Company</th></tr>
+                    </table>
             </div>
         </div>
 
@@ -115,16 +84,8 @@
                 <div style="font-size:10px; color:#999; margin-top:5px">DETAILS ▼</div>
             </div>
             <div id="dec" class="collapse-content">
-                <table>
-                    <tr><th>Account Name</th><th>Client Type</th></tr>
-                    <tr><td>VermögensPartner</td><td>MFO</td></tr>
-                    <tr><td>Avalor</td><td>MFO</td></tr>
-                    <tr><td>Finad</td><td>MFO</td></tr>
-                    <tr><td>Actieninvest</td><td>SFO</td></tr>
-                    <tr><td>Oslo Family Office</td><td>MFO</td></tr>
-                    <tr><td>Survista</td><td>MFO</td></tr>
-                    <tr><td>Aretas Capital</td><td>MFO</td></tr>
-                    <tr><td>Invest-Partners</td><td>MFO</td></tr>
+                <table id="table-dec">
+                    <tr><th>Company</th></tr>
                 </table>
             </div>
         </div>
@@ -136,14 +97,12 @@
                 <div style="font-size:10px; color:#999; margin-top:5px">CLUSTERS ▼</div>
             </div>
             <div id="rest" class="collapse-content">
-                <p><strong>No Reaction:</strong> 85 accounts</p>
-                <p><strong>Asset Class Fit:</strong> 5 accounts</p>
-                <p><strong>Timing/Capacity:</strong> 10 accounts</p>
+                <p><strong>Clustered view of remaining accounts.</strong></p>
             </div>
         </div>
     </div>
 
-    <div class="section-header">Client Mix (Click segments for full lists)</div>
+    <div class="section-header">Client Mix (Click segments for alphabetical company lists)</div>
     <div class="chart-row">
         <div class="chart-card">
             <div class="tile-label">Batch 1 (n=114)</div>
@@ -172,14 +131,32 @@
 
     function hideTable(id) { document.getElementById(id).style.display = "none"; }
 
-    const fullLists = {
-        'MFO': ['Mutter Asset Management', 'Amana', 'Avalor', 'Finad', 'Oslo Family Office', 'Survista', 'Aretas Capital', 'VermögensPartner', 'TFO The Family Office', 'The Wealth Office', 'Trigon Family Office', 'Turigum Family Office'],
-        'IAM': ['StepStone', 'Wealth Management Zürich', 'Wydler Asset Management', 'Alpadis', 'Turicum', '4E Capital', 'AA Group', 'Abrias Investment', 'Adventus Capital', 'Alpha Leonis Partners', 'Weflo Consult', 'Weyrauch Investment'],
-        'SFO': ['Arabella FO', 'Elisir Capital', 'Actieninvest', 'Regotis Advisory', 'Terreus Capital', 'Acies Asset Management'],
-        'Pension': ['Avanea PK', 'BAS PK', 'GastroSocial', 'PK Georg Fischer', 'PK Bosch', 'Raiffeisen PK', 'Pax Versicherung', 'Pensionskasse Thurgau', 'ALSA PK', 'Revor PK'],
-        'Other': ['Lombard Odier', 'ZKB', 'Victoria Peak', 'Aksia', 'Allvisa Services', 'WTW']
+    // Beispiel-Daten (Müssten durch Excel-Import ersetzt werden)
+    const data = {
+        accepted: ['Arabella FO', 'Avanea PK', 'Elisir Capital', 'Mutter Asset Management', 'Lombard Odier', 'Amana'],
+        declined: ['VermögensPartner', 'Avalor', 'Finad', 'Actieninvest', 'Oslo Family Office', 'Survista', 'Aretas Capital', 'Invest-Partners'],
+        fullLists: {
+            'MFO': ['Mutter Asset Management', 'Amana', 'Avalor', 'Finad', 'Oslo Family Office', 'Survista', 'Aretas Capital', 'VermögensPartner'],
+            'IAM': ['StepStone', 'Wealth Management Zürich', 'Wydler Asset Management', 'Alpadis', 'Turicum', '4E Capital'],
+            'SFO': ['Arabella FO', 'Elisir Capital', 'Actieninvest', 'Regotis Advisory'],
+            'Pension': ['Avanea PK', 'BAS PK', 'GastroSocial', 'PK Georg Fischer'],
+            'Other': ['Lombard Odier', 'ZKB', 'Victoria Peak']
+        }
     };
 
+    // Alphabetische Sortierung und Befüllung der KPI-Tabellen
+    function fillAlphaTable(list, tableId) {
+        const table = document.getElementById(tableId);
+        list.sort().forEach(name => {
+            let row = table.insertRow();
+            row.insertCell(0).innerText = name;
+        });
+    }
+
+    fillAlphaTable(data.accepted, 'table-acc');
+    fillAlphaTable(data.declined, 'table-dec');
+
+    // Charts Setup
     const colors = ['#4a6741', '#c4963a', '#2d3f57', '#9ec64d', '#777'];
 
     const b1Chart = new Chart(document.getElementById('b1Chart').getContext('2d'), {
@@ -204,8 +181,9 @@
         const overlay = document.getElementById(tableId);
         const content = document.getElementById(tableId + 'Content');
         overlay.style.display = 'block';
-        let html = `<p><strong>Vollständige Liste: ${category}</strong></p><table><tr><th>Name</th></tr>`;
-        const names = fullLists[category] || ['Weitere Accounts...'];
+        
+        let names = (data.fullLists[category] || []).sort(); // Alphabetische Sortierung
+        let html = `<p><strong>Alphabetische Liste: ${category}</strong></p><table><tr><th>Company</th></tr>`;
         names.forEach(n => html += `<tr><td>${n}</td></tr>`);
         content.innerHTML = html + `</table>`;
     }
