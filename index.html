@@ -20,84 +20,65 @@
 
         .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--nio-gold); margin: 40px 0 15px; border-left: 2px solid var(--nio-gold); padding-left: 10px; }
 
-        /* Stacked Timelines */
-        .card { background: var(--surface); padding: 25px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .card { background: var(--surface); padding: 30px; border: 1px solid var(--border); margin-bottom: 20px; }
         .timeline { display: flex; justify-content: space-between; position: relative; }
         .timeline::before { content: ''; position: absolute; top: 15px; left: 5%; right: 5%; height: 1px; background: var(--border); }
         .step { position: relative; z-index: 1; text-align: center; flex: 1; }
-        .dot { width: 10px; height: 10px; background: var(--nio-dark); border: 2px solid var(--border); border-radius: 50%; margin: 0 auto 10px; }
-        .dot.done { background: var(--nio-green); border-color: var(--nio-green); box-shadow: 0 0 8px var(--nio-green); }
-        .dot.active { background: var(--nio-gold); border-color: var(--nio-gold); box-shadow: 0 0 8px var(--nio-gold); }
+        .dot { width: 14px; height: 14px; background: var(--nio-dark); border: 2px solid var(--border); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; }
+        .dot.done { background: var(--nio-green); border-color: var(--nio-green); color: white; }
+        .dot.active { background: var(--nio-gold); border-color: var(--nio-gold); box-shadow: 0 0 10px var(--nio-gold); }
+        .dot.star { border-color: var(--nio-gold); color: var(--nio-gold); font-size: 12px; }
         .step-label { font-size: 9px; text-transform: uppercase; opacity: 0.6; display: block; margin-bottom: 4px; }
         .step-date { font-family: 'JetBrains Mono'; font-size: 8px; opacity: 0.4; }
 
-        /* KPI Tiles */
         .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .tile { background: var(--surface); border: 1px solid var(--border); position: relative; }
-        .tile-header { padding: 40px 20px; text-align: center; cursor: pointer; transition: background 0.2s; }
-        .tile-header:hover { background: rgba(196, 150, 58, 0.05); }
+        .tile { background: var(--surface); border: 1px solid var(--border); text-align: center; }
+        .tile-header { padding: 40px 20px; cursor: pointer; }
         .tile-val { font-family: 'Cormorant Garamond'; font-size: 64px; color: var(--nio-gold); line-height: 1; }
-        .tile-sub-val { font-size: 14px; color: var(--nio-text); opacity: 0.8; margin-top: -10px; font-weight: 300; }
-        .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; opacity: 0.5; }
-        .view-btn { font-size: 8px; color: var(--nio-gold); margin-top: 15px; border: 1px solid var(--nio-gold); padding: 4px 10px; display: inline-block; letter-spacing: 1px; }
+        .tile-sub-val { font-size: 13px; color: var(--nio-text); opacity: 0.8; margin-top: 5px; letter-spacing: 1px; }
+        .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 15px; opacity: 0.5; }
+        .view-btn { font-size: 8px; color: var(--nio-gold); margin-top: 15px; border: 1px solid var(--nio-gold); padding: 4px 10px; display: inline-block; }
         
-        /* Scrolling Areas */
-        .scroll-area { display: none; padding: 0 20px 20px; max-height: 300px; overflow-y: auto; border-top: 1px solid var(--border); }
-        .scroll-area::-webkit-scrollbar { width: 5px; }
-        .scroll-area::-webkit-scrollbar-thumb { background: var(--nio-gold); border-radius: 10px; }
-        
-        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; }
-        td { padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--nio-text); }
+        .scroll-area { display: none; padding: 20px; max-height: 300px; overflow-y: auto; border-top: 1px solid var(--border); text-align: left; }
+        .scroll-area::-webkit-scrollbar { width: 4px; }
+        .scroll-area::-webkit-scrollbar-thumb { background: var(--nio-gold); }
 
-        /* Charts */
         .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .chart-card { background: var(--surface); padding: 30px; border: 1px solid var(--border); }
-        .chart-flex { display: flex; align-items: center; justify-content: space-between; min-height: 250px; }
-        .chart-wrapper { width: 220px; height: 220px; position: relative; }
+        .chart-flex { display: flex; align-items: center; justify-content: space-between; }
+        .chart-wrapper { width: 200px; height: 200px; position: relative; }
         .chart-legend { margin-left: 30px; flex: 1; }
-        .legend-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11px; cursor: pointer; }
-        .legend-item:hover { color: var(--nio-gold); }
-        .legend-color { width: 7px; height: 7px; border-radius: 50%; margin-right: 10px; }
-        .legend-pct { font-weight: 600; color: var(--nio-gold); }
-
-        .detail-view { display: none; margin-top: 20px; border-top: 1px solid var(--nio-gold); padding-top: 15px; max-height: 350px; overflow-y: auto; }
-        .detail-view::-webkit-scrollbar { width: 5px; }
-        .detail-view::-webkit-scrollbar-thumb { background: var(--nio-gold); border-radius: 10px; }
+        .legend-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11px; }
+        .legend-metrics { color: var(--nio-gold); font-weight: 600; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <div class="header-left">
-            <h1>CIP Infrastructure VI</h1>
-            <p>Zurich Roundtable Outreach Tracking</p>
-        </div>
-        <div class="header-right"><div class="date">15 APRIL 2025</div></div>
+        <div class="header-left"><h1>CIP Infrastructure VI</h1><p>Zurich Roundtable Outreach Tracking</p></div>
+        <div class="header-right"><div class="date">01 APRIL 2026</div></div>
     </header>
 
     <div class="section-title">Timeline Batch 1 (Target: 114)</div>
     <div class="card">
         <div class="timeline">
-            <div class="step"><div class="dot done"></div><div class="step-label">Invite</div><div class="step-date">10.03 – 12.03</div></div>
-            <div class="step"><div class="dot done"></div><div class="step-label">1. FU (Direct)</div><div class="step-date">17.03 – 21.03</div></div>
-            <div class="step"><div class="dot active"></div><div class="step-label">2. FU (Email)</div><div class="step-date">DUE: 26.03</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">3. FU (Direct)</div><div class="step-date">27.03 – 31.03</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">4. FU (Direct)</div><div class="step-date">07.04 – 10.04</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">Final Conf.</div><div class="step-date">11.04 – 14.04</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">Roundtable</div><div class="step-date">15.04.2025</div></div>
+            <div class="step"><div class="dot done">✔</div><div class="step-label">Invite</div><div class="step-date">MAR 10</div></div>
+            <div class="step"><div class="dot done">✔</div><div class="step-label">1. FU</div><div class="step-date">MAR 17</div></div>
+            <div class="step"><div class="dot done">✔</div><div class="step-label">2. FU</div><div class="step-date">MAR 24</div></div>
+            <div class="step"><div class="dot active"></div><div class="step-label">3. FU</div><div class="step-date">IN PROGRESS</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">Final Conf.</div><div class="step-date">APR 11</div></div>
+            <div class="step"><div class="dot star">★</div><div class="step-label">Roundtable</div><div class="step-date">APR 15</div></div>
         </div>
     </div>
 
     <div class="section-title">Timeline Batch 2 (Target: 184)</div>
     <div class="card">
         <div class="timeline">
-            <div class="step"><div class="dot done"></div><div class="step-label">Invite</div><div class="step-date">17.03 – 19.03</div></div>
-            <div class="step"><div class="dot active"></div><div class="step-label">1. FU (Email)</div><div class="step-date">DUE: 26.03</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">2. FU (Email)</div><div class="step-date">02.04 – 04.04</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">3. FU (Direct)</div><div class="step-date">07.04 – 10.04</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">Final Conf.</div><div class="step-date">11.04 – 14.04</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">Roundtable</div><div class="step-date">15.04.2025</div></div>
+            <div class="step"><div class="dot active"></div><div class="step-label">Invite</div><div class="step-date">STARTED TODAY</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">1. FU</div><div class="step-date">APR 08</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">2. FU</div><div class="step-date">APR 15</div></div>
+            <div class="step"><div class="dot star">★</div><div class="step-label">Roundtable</div><div class="step-date">APR 15</div></div>
         </div>
     </div>
 
@@ -105,7 +86,7 @@
         <div class="tile">
             <div class="tile-header" onclick="toggle('acc')">
                 <div class="tile-val">6</div>
-                <div class="tile-sub-val">CHF 4.2B Potential</div>
+                <div class="tile-sub-val">CHF 18M Potential</div>
                 <div class="tile-label">Accepted</div>
                 <div class="view-btn">VIEW DETAILS</div>
             </div>
@@ -121,55 +102,49 @@
         </div>
         <div class="tile">
             <div class="tile-header" onclick="toggle('res')">
-                <div class="tile-val" style="color: #666;">100</div>
+                <div class="tile-val" style="color: #666;">284</div>
                 <div class="tile-label">The Rest</div>
                 <div class="view-btn">VIEW CLUSTERS</div>
             </div>
-            <div id="res" class="scroll-area"><p style="font-size: 11px; opacity: 0.6; padding: 20px 0;">No Reaction / Pending</p></div>
+            <div id="res" class="scroll-area">
+                <div style="padding:8px 0; border-bottom:1px solid #3a3d37; font-size:11px; opacity:0.7;">1. No Reaction (240)</div>
+                <div style="padding:8px 0; border-bottom:1px solid #3a3d37; font-size:11px; opacity:0.7;">2. Wrong Person (20)</div>
+                <div style="padding:8px 0; border-bottom:1px solid #3a3d37; font-size:11px; opacity:0.7;">3. Low Interest (15)</div>
+                <div style="padding:8px 0; border-bottom:1px solid #3a3d37; font-size:11px; opacity:0.7;">4. Future Lead (9)</div>
+            </div>
         </div>
     </div>
 
-    <div class="section-title">Client Mix (Click Category for Full List)</div>
+    <div class="section-title">Client Mix (Total | Percentage)</div>
     <div class="chart-row">
         <div class="chart-card">
             <div class="chart-flex">
                 <div class="chart-wrapper"><canvas id="b1Chart"></canvas></div>
                 <div id="b1Legend" class="chart-legend"></div>
             </div>
-            <div id="b1Overlay" class="detail-view"></div>
         </div>
         <div class="chart-card">
             <div class="chart-flex">
                 <div class="chart-wrapper"><canvas id="b2Chart"></canvas></div>
                 <div id="b2Legend" class="chart-legend"></div>
             </div>
-            <div id="b2Overlay" class="detail-view"></div>
         </div>
     </div>
 </div>
 
 <script>
     function toggle(id) { const el = document.getElementById(id); el.style.display = (el.style.display === "block") ? "none" : "block"; }
-
+    
     const db = {
-        acc: ['Amana', 'Arabella FO', 'Avanea PK', 'Elisir Capital', 'Lombard Odier', 'Mutter Asset Management'].sort(),
+        acc: ['Amana', 'Arabella FO', 'Avanea PK', 'Elisir Capital', 'Lombard Odier', 'Mutter Asset Mgmt'].sort(),
         dec: ['Actieninvest', 'Aretas Capital', 'Avalor', 'Finad', 'Invest-Partners', 'Oslo Family Office', 'Survista', 'VermögensPartner'].sort(),
         batches: {
-            b1: { 
-                MFO: ['Amana', 'Aretas Capital', 'Avalor', 'Finad', 'Mutter Asset Management', 'Oslo Family Office', 'Survista', 'VermögensPartner', 'TFO The Family Office', 'The Wealth Office'].sort(),
-                IAM: ['4E Capital', 'AA Group', 'Abrias Investment', 'Adventus Capital', 'Alpha Leonis Partners', 'Alpadis', 'StepStone', 'Turicum', 'Wealth Management Zürich', 'Wydler Asset Management'].sort(),
-                SFO: ['Arabella FO', 'Elisir Capital', 'Actieninvest', 'Regotis Advisory', 'Terreus Capital', 'Acies Asset Management'].sort(),
-                Pension: ['Avanea PK', 'BAS PK', 'GastroSocial', 'PK Georg Fischer', 'PK Bosch', 'Raiffeisen PK', 'Pax Versicherung', 'Pensionskasse Thurgau'].sort(),
-                Other: ['Aksia', 'Allvisa Services', 'Lombard Odier', 'Victoria Peak', 'WTW', 'ZKB'].sort()
-            },
-            b2: { 
-                Pension: ['Avanea PK', 'BAS PK', 'GastroSocial', 'PK Georg Fischer', 'PK Bosch', 'Raiffeisen PK', 'Pax Versicherung', 'Pensionskasse Thurgau', 'Siemens PK', 'Nest PK'].sort(),
-                IAM: ['4E Capital', 'AA Group', 'Abrias Investment', 'Adventus Capital', 'Alpha Leonis Partners', 'StepStone', 'Wydler AM'].sort()
-            }
+            b1: { MFO: 51, IAM: 27, SFO: 21, Pension: 9, Other: 6 },
+            b2: { Pension: 114, IAM: 70 }
         }
     };
 
-    const fillT = (id, list) => document.getElementById(id).innerHTML = list.map(n => `<tr><td>${n}</td></tr>`).join('');
+    const fillT = (id, list) => document.getElementById(id).innerHTML = list.map(n => `<tr><td style="padding:8px 0; border-bottom:1px solid #3a3d37; font-size:11px;">${n}</td></tr>`).join('');
     fillT('t-acc', db.acc); fillT('t-dec', db.dec);
 
     Chart.register({
@@ -177,38 +152,28 @@
         afterDraw: (chart) => {
             if (chart.config.options.centerVal) {
                 const {ctx, chartArea: {top, bottom, left, right}} = chart;
-                ctx.save(); ctx.font = "bold 32px 'Cormorant Garamond'"; ctx.fillStyle = "#c4963a"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.save(); ctx.font = "bold 30px 'Cormorant Garamond'"; ctx.fillStyle = "#c4963a"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
                 ctx.fillText(chart.config.options.centerVal, (left + right) / 2, (top + bottom) / 2); ctx.restore();
             }
         }
     });
 
-    const setupChart = (canvasId, legendId, overlayId, batchKey, total) => {
+    const setupChart = (canvasId, legendId, batchKey, total) => {
         const data = db.batches[batchKey];
         const chart = new Chart(document.getElementById(canvasId), {
             type: 'doughnut',
-            data: { labels: Object.keys(data), datasets: [{ data: Object.values(data).map(v => v.length), backgroundColor: ['#4a6741', '#c4963a', '#2d3f57', '#6b7280', '#3a3d37'], borderWidth: 0, cutout: '82%' }] },
+            data: { labels: Object.keys(data), datasets: [{ data: Object.values(data), backgroundColor: ['#4a6741', '#c4963a', '#2d3f57', '#6b7280', '#3a3d37'], borderWidth: 0, cutout: '85%' }] },
             options: { centerVal: total, plugins: { legend: { display: false } }, maintainAspectRatio: false }
         });
         document.getElementById(legendId).innerHTML = Object.keys(data).map((label, i) => {
-            const count = data[label].length;
-            return `<div class="legend-item" onclick="showList('${overlayId}', '${batchKey}', '${label}')">
-                <div style="display:flex; align-items:center"><div class="legend-color" style="background:${chart.data.datasets[0].backgroundColor[i]}"></div>${label}</div>
-                <div class="legend-pct">${Math.round((count/total)*100)}%</div>
-            </div>`;
+            const count = data[label];
+            const pct = Math.round((count / total) * 100);
+            return `<div class="legend-item"><span>${label}</span><span class="legend-metrics">${count} | ${pct}%</span></div>`;
         }).join('');
     };
 
-    window.showList = (overlayId, batchKey, label) => {
-        const div = document.getElementById(overlayId); const list = db.batches[batchKey][label];
-        div.style.display = "block";
-        div.innerHTML = `<div style="font-size:10px; color:#c4963a; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px">${label} (${list.length} COMPANIES)</div>
-            <table>${list.map(n => `<tr><td>${n}</td></tr>`).join('')}</table>`;
-        div.scrollTop = 0;
-    };
-
-    setupChart('b1Chart', 'b1Legend', 'b1Overlay', 'b1', 114);
-    setupChart('b2Chart', 'b2Legend', 'b2Overlay', 'b2', 184);
+    setupChart('b1Chart', 'b1Legend', 'b1', 114);
+    setupChart('b2Chart', 'b2Legend', 'b2', 184);
 </script>
 </body>
 </html>
