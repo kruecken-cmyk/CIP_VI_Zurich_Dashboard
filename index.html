@@ -4,69 +4,64 @@
     <meta charset="UTF-8">
     <title>NIO Partners – Executive Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cormorant+Garamond:wght@500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --nio-dark: #1a1c18; 
-            --nio-gold: #c4963a; 
-            --nio-green: #4a6741; 
-            --nio-text: #e5e7eb;
-            --surface: #242622;
-            --border: #3a3d37;
+            --nio-dark: #1a1c18; --nio-gold: #c4963a; --nio-green: #4a6741; 
+            --nio-text: #e5e7eb; --surface: #242622; --border: #3a3d37;
         }
         body { font-family: 'Inter', sans-serif; background: var(--nio-dark); color: var(--nio-text); margin: 0; padding: 40px; }
-        .container { max-width: 1400px; margin: auto; }
+        .container { max-width: 1200px; margin: auto; }
         
-        header { 
-            display: flex; justify-content: space-between; align-items: flex-end;
-            padding-bottom: 20px; border-bottom: 1px solid var(--nio-gold); margin-bottom: 40px;
-        }
-        .header-left h1 { margin: 0; font-family: 'Cormorant Garamond'; font-size: 32px; letter-spacing: 2px; color: var(--nio-gold); text-transform: uppercase; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 20px; border-bottom: 1px solid var(--nio-gold); margin-bottom: 40px; }
+        .header-left h1 { margin: 0; font-family: 'Cormorant Garamond'; font-size: 32px; color: var(--nio-gold); text-transform: uppercase; }
         .header-left p { margin: 5px 0 0; font-size: 11px; letter-spacing: 3px; opacity: 0.7; text-transform: uppercase; }
         .header-right .date { font-family: 'Cormorant Garamond'; font-size: 28px; color: var(--nio-gold); }
 
-        .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-        .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--nio-gold); margin-bottom: 15px; border-left: 2px solid var(--nio-gold); padding-left: 10px; }
+        .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--nio-gold); margin: 40px 0 15px; border-left: 2px solid var(--nio-gold); padding-left: 10px; }
 
-        /* Timelines */
-        .card { background: var(--surface); padding: 25px; border: 1px solid var(--border); }
-        .timeline { display: flex; justify-content: space-between; position: relative; margin-top: 10px; }
-        .timeline::before { content: ''; position: absolute; top: 15px; left: 10%; right: 10%; height: 1px; background: var(--border); }
+        /* Timelines untereinander */
+        .card { background: var(--surface); padding: 25px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .timeline { display: flex; justify-content: space-between; position: relative; }
+        .timeline::before { content: ''; position: absolute; top: 15px; left: 5%; right: 5%; height: 1px; background: var(--border); }
         .step { position: relative; z-index: 1; text-align: center; flex: 1; }
         .dot { width: 10px; height: 10px; background: var(--nio-dark); border: 2px solid var(--border); border-radius: 50%; margin: 0 auto 10px; }
         .dot.done { background: var(--nio-green); border-color: var(--nio-green); box-shadow: 0 0 8px var(--nio-green); }
         .dot.active { background: var(--nio-gold); border-color: var(--nio-gold); box-shadow: 0 0 8px var(--nio-gold); }
-        .step-label { font-size: 9px; text-transform: uppercase; opacity: 0.6; }
+        .step-label { font-size: 9px; text-transform: uppercase; opacity: 0.6; display: block; margin-bottom: 4px; }
+        .step-date { font-family: 'JetBrains Mono'; font-size: 8px; opacity: 0.4; }
 
         /* KPI Tiles */
-        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 50px; }
-        .tile { background: var(--surface); border: 1px solid var(--border); transition: 0.3s; }
-        .tile-header { padding: 40px 20px; text-align: center; cursor: pointer; }
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .tile { background: var(--surface); border: 1px solid var(--border); position: relative; }
+        .tile-header { padding: 40px 20px; text-align: center; cursor: pointer; transition: background 0.2s; }
+        .tile-header:hover { background: rgba(196, 150, 58, 0.05); }
         .tile-val { font-family: 'Cormorant Garamond'; font-size: 64px; color: var(--nio-gold); line-height: 1; }
         .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; opacity: 0.5; }
+        .view-btn { font-size: 8px; color: var(--nio-gold); margin-top: 15px; border: 1px solid var(--nio-gold); padding: 4px 8px; display: inline-block; letter-spacing: 1px; }
         
-        /* Scrolling List für KPI & Charts */
-        .scroll-area { display: none; padding: 0 20px 20px; max-height: 300px; overflow-y: auto; border-top: 1px solid var(--border); background: rgba(0,0,0,0.1); }
+        /* Scroller */
+        .scroll-area { display: none; padding: 0 20px 20px; max-height: 300px; overflow-y: auto; border-top: 1px solid var(--border); }
         .scroll-area::-webkit-scrollbar { width: 4px; }
         .scroll-area::-webkit-scrollbar-thumb { background: var(--nio-gold); }
         
         table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 15px; }
         td { padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--nio-text); }
 
-        /* Chart Layout */
+        /* Charts */
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .chart-card { background: var(--surface); padding: 30px; border: 1px solid var(--border); }
-        .chart-flex { display: flex; align-items: center; justify-content: center; min-height: 300px; }
-        .chart-wrapper { width: 240px; height: 240px; position: relative; }
-        
-        .chart-legend { margin-left: 40px; flex: 1; }
-        .legend-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 12px; cursor: pointer; }
+        .chart-flex { display: flex; align-items: center; justify-content: space-between; min-height: 250px; }
+        .chart-wrapper { width: 220px; height: 220px; position: relative; }
+        .chart-legend { margin-left: 30px; flex: 1; }
+        .legend-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11px; cursor: pointer; }
         .legend-item:hover { color: var(--nio-gold); }
-        .legend-color { width: 8px; height: 8px; border-radius: 50%; margin-right: 12px; }
+        .legend-color { width: 7px; height: 7px; border-radius: 50%; margin-right: 10px; }
         .legend-pct { font-weight: 600; color: var(--nio-gold); }
 
-        .chart-detail-view { display: none; margin-top: 25px; border-top: 1px solid var(--nio-gold); padding-top: 15px; max-height: 400px; overflow-y: auto; }
-        .chart-detail-view::-webkit-scrollbar { width: 4px; }
-        .chart-detail-view::-webkit-scrollbar-thumb { background: var(--nio-gold); }
+        .detail-view { display: none; margin-top: 20px; border-top: 1px solid var(--nio-gold); padding-top: 15px; max-height: 300px; overflow-y: auto; }
+        .detail-view::-webkit-scrollbar { width: 4px; }
+        .detail-view::-webkit-scrollbar-thumb { background: var(--nio-gold); }
     </style>
 </head>
 <body>
@@ -75,35 +70,33 @@
     <header>
         <div class="header-left">
             <h1>CIP Infrastructure VI</h1>
-            <p>Zurich Roundtable Outreach Dashboard</p>
+            <p>Zurich Roundtable Outreach Tracking</p>
         </div>
-        <div class="header-right">
-            <div class="date">15 April 2025</div>
-        </div>
+        <div class="header-right"><div class="date">15 April 2025</div></div>
     </header>
 
-    <div class="section-grid">
-        <div>
-            <div class="section-title">Timeline Batch 1</div>
-            <div class="card">
-                <div class="timeline">
-                    <div class="step"><div class="dot done"></div><div class="step-label">Invite</div></div>
-                    <div class="step"><div class="dot done"></div><div class="step-label">FU 1</div></div>
-                    <div class="step"><div class="dot active"></div><div class="step-label">FU 2</div></div>
-                    <div class="step"><div class="dot"></div><div class="step-label">FU 3</div></div>
-                </div>
-            </div>
+    <div class="section-title">Timeline Batch 1 (Target: 114)</div>
+    <div class="card">
+        <div class="timeline">
+            <div class="step"><div class="dot done"></div><div class="step-label">Invite</div><div class="step-date">10.03 – 12.03</div></div>
+            <div class="step"><div class="dot done"></div><div class="step-label">1. FU (Direct)</div><div class="step-date">17.03 – 21.03</div></div>
+            <div class="step"><div class="dot active"></div><div class="step-label">2. FU (Email)</div><div class="step-date">DUE: 26.03</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">3. FU (Direct)</div><div class="step-date">27.03 – 31.03</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">4. FU (Direct)</div><div class="step-date">07.04 – 10.04</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">Final Conf.</div><div class="step-date">11.04 – 14.04</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">Roundtable</div><div class="step-date">15.04.2025</div></div>
         </div>
-        <div>
-            <div class="section-title">Timeline Batch 2</div>
-            <div class="card">
-                <div class="timeline">
-                    <div class="step"><div class="dot done"></div><div class="step-label">Invite</div></div>
-                    <div class="step"><div class="dot active"></div><div class="step-label">FU 1</div></div>
-                    <div class="step"><div class="dot"></div><div class="step-label">FU 2</div></div>
-                    <div class="step"><div class="dot"></div><div class="step-label">FU 3</div></div>
-                </div>
-            </div>
+    </div>
+
+    <div class="section-title">Timeline Batch 2 (Target: 184)</div>
+    <div class="card">
+        <div class="timeline">
+            <div class="step"><div class="dot done"></div><div class="step-label">Invite</div><div class="step-date">17.03 – 19.03</div></div>
+            <div class="step"><div class="dot active"></div><div class="step-label">1. FU (Email)</div><div class="step-date">DUE: 26.03</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">2. FU (Email)</div><div class="step-date">02.04 – 04.04</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">3. FU (Direct)</div><div class="step-date">07.04 – 10.04</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">Final Conf.</div><div class="step-date">11.04 – 14.04</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">Roundtable</div><div class="step-date">15.04.2025</div></div>
         </div>
     </div>
 
@@ -112,6 +105,7 @@
             <div class="tile-header" onclick="toggle('acc')">
                 <div class="tile-val">6</div>
                 <div class="tile-label">Accepted</div>
+                <div class="view-btn">VIEW DETAILS</div>
             </div>
             <div id="acc" class="scroll-area"><table id="t-acc"></table></div>
         </div>
@@ -119,6 +113,7 @@
             <div class="tile-header" onclick="toggle('dec')">
                 <div class="tile-val" style="color: #a34b4b;">8</div>
                 <div class="tile-label">Declined</div>
+                <div class="view-btn">VIEW DETAILS</div>
             </div>
             <div id="dec" class="scroll-area"><table id="t-dec"></table></div>
         </div>
@@ -126,67 +121,63 @@
             <div class="tile-header" onclick="toggle('res')">
                 <div class="tile-val" style="color: #666;">100</div>
                 <div class="tile-label">The Rest</div>
+                <div class="view-btn">VIEW CLUSTERS</div>
             </div>
-            <div id="res" class="scroll-area"><p style="font-size: 11px; opacity: 0.6; padding: 20px 0;">Pending Response</p></div>
+            <div id="res" class="scroll-area"><p style="font-size: 11px; opacity: 0.6; padding: 20px 0;">No Reaction / Pending</p></div>
         </div>
     </div>
 
-    <div class="section-title">Client Mix & Detailed Lists</div>
-    <div class="section-grid">
+    <div class="section-title">Client Mix (Alphabetical List on Click)</div>
+    <div class="chart-row">
         <div class="chart-card">
             <div class="chart-flex">
                 <div class="chart-wrapper"><canvas id="b1Chart"></canvas></div>
                 <div id="b1Legend" class="chart-legend"></div>
             </div>
-            <div id="b1Overlay" class="chart-detail-view"></div>
+            <div id="b1Overlay" class="detail-view"></div>
         </div>
         <div class="chart-card">
             <div class="chart-flex">
                 <div class="chart-wrapper"><canvas id="b2Chart"></canvas></div>
                 <div id="b2Legend" class="chart-legend"></div>
             </div>
-            <div id="b2Overlay" class="chart-detail-view"></div>
+            <div id="b2Overlay" class="detail-view"></div>
         </div>
     </div>
 </div>
 
 <script>
-    function toggle(id) {
-        const el = document.getElementById(id);
-        el.style.display = (el.style.display === "block") ? "none" : "block";
-    }
+    function toggle(id) { const el = document.getElementById(id); el.style.display = (el.style.display === "block") ? "none" : "block"; }
 
-    // Mock-Daten Generator (hier fügen Sie Ihre echten Excel-Daten ein)
-    const genList = (pre, n) => Array.from({length: n}, (_, i) => `${pre} Company ${i + 1}`).sort();
-    
+    // ECHTE DATEN & Alphabetische Sortierung
     const db = {
-        acc: ['Arabella FO', 'Avanea PK', 'Elisir Capital', 'Lombard Odier', 'Mutter AM', 'Amana'],
-        dec: ['Avalor', 'Finad', 'VermögensPartner', 'Actieninvest', 'Oslo FO', 'Survista', 'Aretas', 'Invest-P'],
+        acc: ['Amana', 'Arabella FO', 'Avanea PK', 'Elisir Capital', 'Lombard Odier', 'Mutter Asset Management'].sort(),
+        dec: ['Actieninvest', 'Aretas Capital', 'Avalor', 'Finad', 'Invest-Partners', 'Oslo Family Office', 'Survista', 'VermögensPartner'].sort(),
         batches: {
-            b1: { MFO: genList('MFO', 51), IAM: genList('IAM', 27), SFO: genList('SFO', 21), Pension: genList('Pension', 9), Other: genList('Other', 6) },
-            b2: { Pension: genList('Pension', 114), IAM: genList('IAM', 70) }
+            b1: { 
+                MFO: ['Amana', 'Aretas Capital', 'Avalor', 'Finad', 'Mutter Asset Management', 'Oslo Family Office', 'Survista', 'VermögensPartner', 'TFO The Family Office', 'The Wealth Office'].sort(),
+                IAM: ['4E Capital', 'AA Group', 'Abrias Investment', 'Adventus Capital', 'Alpha Leonis Partners', 'Alpadis', 'StepStone', 'Turicum', 'Wealth Management Zürich', 'Wydler Asset Management'].sort(),
+                SFO: ['Arabella FO', 'Elisir Capital', 'Actieninvest', 'Regotis Advisory', 'Terreus Capital', 'Acies Asset Management'].sort(),
+                Pension: ['Avanea PK', 'BAS PK', 'GastroSocial', 'PK Georg Fischer', 'PK Bosch', 'Raiffeisen PK', 'Pax Versicherung', 'Pensionskasse Thurgau'].sort(),
+                Other: ['Aksia', 'Allvisa Services', 'Lombard Odier', 'Victoria Peak', 'WTW', 'ZKB'].sort()
+            },
+            b2: { 
+                Pension: ['Avanea PK', 'BAS PK', 'GastroSocial', 'PK Georg Fischer', 'PK Bosch', 'Raiffeisen PK', 'Pax Versicherung', 'Pensionskasse Thurgau', 'Siemens PK', 'Nest PK'].sort(),
+                IAM: ['4E Capital', 'AA Group', 'Abrias Investment', 'Adventus Capital', 'Alpha Leonis Partners', 'StepStone', 'Wydler AM'].sort()
+            }
         }
     };
 
     const fillT = (id, list) => document.getElementById(id).innerHTML = list.map(n => `<tr><td>${n}</td></tr>`).join('');
-    fillT('t-acc', db.acc);
-    fillT('t-dec', db.dec);
+    fillT('t-acc', db.acc); fillT('t-dec', db.dec);
 
-    const colors = ['#4a6741', '#c4963a', '#2d3f57', '#6b7280', '#3a3d37'];
-
-    // Plugin für die zentrierte Zahl im Pie Chart
     Chart.register({
         id: 'centerValue',
         afterDraw: (chart) => {
             if (chart.config.options.centerVal) {
                 const {ctx, chartArea: {top, bottom, left, right}} = chart;
-                ctx.save();
-                ctx.font = "bold 32px 'Cormorant Garamond'";
-                ctx.fillStyle = "#c4963a";
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(chart.config.options.centerVal, (left + right) / 2, (top + bottom) / 2);
-                ctx.restore();
+                ctx.save(); ctx.font = "bold 32px 'Cormorant Garamond'"; ctx.fillStyle = "#c4963a"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(chart.config.options.centerVal, (left + right) / 2, (top + bottom) / 2); ctx.restore();
             }
         }
     });
@@ -195,29 +186,22 @@
         const data = db.batches[batchKey];
         const chart = new Chart(document.getElementById(canvasId), {
             type: 'doughnut',
-            data: {
-                labels: Object.keys(data),
-                datasets: [{ data: Object.values(data).map(v => v.length), backgroundColor: colors, borderWidth: 0, cutout: '82%' }]
-            },
+            data: { labels: Object.keys(data), datasets: [{ data: Object.values(data).map(v => v.length), backgroundColor: ['#4a6741', '#c4963a', '#2d3f57', '#6b7280', '#3a3d37'], borderWidth: 0, cutout: '82%' }] },
             options: { centerVal: total, plugins: { legend: { display: false } }, maintainAspectRatio: false }
         });
-
-        // Legende mit Prozenten & Klick-Funktion
         document.getElementById(legendId).innerHTML = Object.keys(data).map((label, i) => {
             const count = data[label].length;
-            const pct = Math.round((count / total) * 100) + '%';
             return `<div class="legend-item" onclick="showList('${overlayId}', '${batchKey}', '${label}')">
-                <div style="display:flex; align-items:center"><div class="legend-color" style="background:${colors[i]}"></div>${label}</div>
-                <div class="legend-pct">${pct}</div>
+                <div style="display:flex; align-items:center"><div class="legend-color" style="background:${chart.data.datasets[0].backgroundColor[i]}"></div>${label}</div>
+                <div class="legend-pct">${Math.round((count/total)*100)}%</div>
             </div>`;
         }).join('');
     };
 
     window.showList = (overlayId, batchKey, label) => {
-        const div = document.getElementById(overlayId);
-        const list = db.batches[batchKey][label];
+        const div = document.getElementById(overlayId); const list = db.batches[batchKey][label];
         div.style.display = "block";
-        div.innerHTML = `<div style="font-size:10px; color:#c4963a; margin-bottom:12px; letter-spacing:1px;">${label} (TOTAL: ${list.length})</div>
+        div.innerHTML = `<div style="font-size:10px; color:#c4963a; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px">${label} (${list.length} Companies)</div>
             <table>${list.map(n => `<tr><td>${n}</td></tr>`).join('')}</table>`;
         div.scrollTop = 0;
     };
