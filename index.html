@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>NIO Partners – Executive Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cormorant+Garamond:wght@500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -21,7 +20,7 @@
 
         .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--nio-gold); margin: 50px 0 20px; border-left: 2px solid var(--nio-gold); padding-left: 10px; }
 
-        /* LOCKED TIMELINES - NO CHANGES */
+        /* TIMELINES (LOCKED) */
         .card-timeline { background: var(--surface); padding: 50px 40px; border: 1px solid var(--border); margin-bottom: 30px; }
         .timeline { display: flex; justify-content: space-between; position: relative; width: 100%; }
         .timeline::before { content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 1px; background: var(--border); z-index: 0; }
@@ -35,28 +34,37 @@
         .step-date { font-family: 'JetBrains Mono'; font-size: 9px; opacity: 0.5; color: var(--nio-gold); display: block; }
         .step-count { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--nio-text); font-weight: bold; margin-top: 4px; display: block; }
 
-        /* INTERACTIVE KPI TILES */
-        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-        .tile { background: var(--surface); border: 1px solid var(--border); padding: 30px; position: relative; transition: all 0.3s ease; }
-        .tile-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .tile-val { font-family: 'Cormorant Garamond'; font-size: 64px; color: var(--nio-gold); line-height: 1; }
-        .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; opacity: 0.5; }
-        .tile-sub-val { font-size: 13px; opacity: 0.8; margin-top: 5px; color: var(--nio-text); }
+        /* UNIFORM KPI TILES */
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+        .tile { 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            padding: 40px 30px; 
+            position: relative; 
+            min-height: 140px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .tile-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .tile-val { font-family: 'Cormorant Garamond'; font-size: 72px; color: var(--nio-gold); line-height: 0.8; }
+        .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 15px; opacity: 0.6; font-weight: 600; }
         
-        .toggle-btn { background: none; border: none; color: var(--nio-gold); cursor: pointer; font-size: 18px; padding: 0; transition: transform 0.3s; }
-        .toggle-btn.active { transform: rotate(180deg); }
+        .toggle-btn { background: none; border: none; color: var(--nio-gold); cursor: pointer; font-size: 16px; opacity: 0.5; transition: all 0.3s ease; }
+        .toggle-btn:hover { opacity: 1; transform: scale(1.2); }
+        .toggle-btn.active { transform: rotate(180deg); opacity: 1; }
 
-        .details-pane { display: none; margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px; text-align: left; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .details-pane { display: none; margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         table { width: 100%; border-collapse: collapse; font-size: 11px; }
-        th { text-align: left; text-transform: uppercase; letter-spacing: 1px; opacity: 0.4; padding-bottom: 10px; font-weight: 400; }
-        td { padding: 8px 0; border-bottom: 1px solid #ffffff05; }
+        th { text-align: left; text-transform: uppercase; letter-spacing: 1px; opacity: 0.4; padding-bottom: 12px; font-weight: 400; border-bottom: 1px solid var(--border); }
+        td { padding: 10px 0; border-bottom: 1px solid #ffffff05; }
         .t-size { font-family: 'JetBrains Mono'; color: var(--nio-gold); font-weight: bold; text-align: right; }
         
-        .cluster-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #ffffff05; }
-        .cluster-name { font-weight: 600; font-size: 11px; }
-        .cluster-count { font-family: 'JetBrains Mono'; color: var(--nio-gold); }
+        .cluster-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #ffffff05; font-size: 11px; }
+        .cluster-name { opacity: 0.8; font-weight: 500; }
+        .cluster-count { font-family: 'JetBrains Mono'; color: var(--nio-gold); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -96,10 +104,7 @@
     <div class="tile-grid">
         <div class="tile" id="tile-accepted">
             <div class="tile-header">
-                <div>
-                    <div class="tile-val">6</div>
-                    <div class="tile-sub-val">CHF 18M Potential</div>
-                </div>
+                <div class="tile-val">6</div>
                 <button class="toggle-btn" onclick="toggleDetails('accepted')">▼</button>
             </div>
             <div class="tile-label">Accepted</div>
@@ -120,9 +125,7 @@
 
         <div class="tile" id="tile-declined">
             <div class="tile-header">
-                <div>
-                    <div class="tile-val" style="color:var(--decline-red)">8</div>
-                </div>
+                <div class="tile-val" style="color:var(--decline-red)">8</div>
                 <button class="toggle-btn" onclick="toggleDetails('declined')">▼</button>
             </div>
             <div class="tile-label">Declined</div>
@@ -130,14 +133,14 @@
                 <table>
                     <thead><tr><th>Company</th><th>Client Type</th></tr></thead>
                     <tbody>
-                        <tr><td>Julius Bär</td><td>IAM</td></tr>
-                        <tr><td>Vontobel</td><td>IAM</td></tr>
-                        <tr><td>Pictet</td><td>IAM</td></tr>
-                        <tr><td>Lombard Odier</td><td>IAM</td></tr>
-                        <tr><td>UBS GWM</td><td>IAM</td></tr>
-                        <tr><td>Credit Suisse</td><td>IAM</td></tr>
-                        <tr><td>EFG Bank</td><td>IAM</td></tr>
-                        <tr><td>Syz Bank</td><td>IAM</td></tr>
+                        <tr><td>Aquila</td><td>IAM</td></tr>
+                        <tr><td>Quilvest</td><td>MFO</td></tr>
+                        <tr><td>TCA Asset Mgt</td><td>IAM</td></tr>
+                        <tr><td>One Swiss Bank</td><td>IAM</td></tr>
+                        <tr><td>Bordier & Cie</td><td>IAM</td></tr>
+                        <tr><td>Cuvry & Cie</td><td>MFO</td></tr>
+                        <tr><td>Decisive Capital</td><td>MFO</td></tr>
+                        <tr><td>Sarasin</td><td>IAM</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -145,15 +148,16 @@
 
         <div class="tile" id="tile-rest">
             <div class="tile-header">
-                <div><div class="tile-val" style="color:#666">284</div></div>
+                <div class="tile-val" style="color:#666">100</div>
                 <button class="toggle-btn" onclick="toggleDetails('rest')">▼</button>
             </div>
-            <div class="tile-label">The Rest</div>
+            <div class="tile-label">The Rest (Reason Given)</div>
             <div class="details-pane" id="details-rest">
-                <div class="cluster-item"><span class="cluster-name">High Interest / Pending Ticket</span><span class="cluster-count">12</span></div>
-                <div class="cluster-item"><span class="cluster-name">In Discussion</span><span class="cluster-count">48</span></div>
-                <div class="cluster-item"><span class="cluster-name">Cold / No Response</span><span class="cluster-count">194</span></div>
-                <div class="cluster-item"><span class="cluster-name">Waitlisted</span><span class="cluster-count">30</span></div>
+                <div class="cluster-item"><span class="cluster-name">Active Interest / Reviewing</span><span class="cluster-count">35</span></div>
+                <div class="cluster-item"><span class="cluster-name">Pipeline / Timing (H2/Q3)</span><span class="cluster-count">30</span></div>
+                <div class="cluster-item"><span class="cluster-name">Strategy Mismatch</span><span class="cluster-count">20</span></div>
+                <div class="cluster-item"><span class="cluster-name">No Feedback / Generic</span><span class="cluster-count">10</span></div>
+                <div class="cluster-item"><span class="cluster-name">Meeting Conflict</span><span class="cluster-count">5</span></div>
             </div>
         </div>
     </div>
@@ -165,7 +169,6 @@
         const pane = document.getElementById('details-' + id);
         const btn = document.querySelector(`#tile-${id} .toggle-btn`);
         const isVisible = pane.style.display === 'block';
-        
         pane.style.display = isVisible ? 'none' : 'block';
         btn.classList.toggle('active', !isVisible);
     }
