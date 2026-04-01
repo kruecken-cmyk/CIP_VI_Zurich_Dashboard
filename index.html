@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>CIP VI – Zurich Strategy Dashboard</title>
+    <title>CIP VI – Zurich Executive Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
@@ -10,53 +10,51 @@
             --color-1: #2d3f57; --color-2: #4a6741; --color-3: #c4963a; --color-6: #9ec64d;
             --bg: #f4f1ea; --surface: #ffffff; --border: #dcd7ca; --text: #1a1a1a;
         }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 25px; }
-        .container { max-width: 1300px; margin: auto; }
-        header { background: var(--color-1); color: white; padding: 20px 40px; border-bottom: 4px solid var(--color-3); display: flex; justify-content: space-between; align-items: center; border-radius: 8px 8px 0 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 1400px; margin: auto; }
+        header { background: var(--color-1); color: white; padding: 15px 30px; border-bottom: 4px solid var(--color-3); display: flex; justify-content: space-between; align-items: center; border-radius: 8px; }
         
-        .section-header { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--color-2); margin: 30px 0 15px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .section-header { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--color-2); margin: 30px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
 
-        /* Timeline Styles */
-        .card { background: var(--surface); padding: 25px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .timeline { display: flex; justify-content: space-between; position: relative; padding-top: 10px; }
-        .timeline::before { content: ''; position: absolute; top: 35px; left: 50px; right: 50px; height: 2px; background: #eee; z-index: 0; }
+        /* Timelines */
+        .card { background: var(--surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .timeline { display: flex; justify-content: space-between; position: relative; }
+        .timeline::before { content: ''; position: absolute; top: 30px; left: 40px; right: 40px; height: 1px; background: #eee; z-index: 0; }
         .step { position: relative; z-index: 1; text-align: center; flex: 1; }
-        .dot { width: 44px; height: 44px; background: white; border: 2px solid #ddd; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; }
+        .dot { width: 40px; height: 40px; background: white; border: 2px solid #ddd; border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; }
         .dot.done { border-color: var(--color-2); color: var(--color-2); background: #f0f7ef; }
-        .dot.active { border-color: var(--color-3); color: var(--color-3); background: #fffdf5; }
-        .step-label { font-size: 10px; font-weight: 600; text-transform: uppercase; min-height: 25px; }
-        .step-date { font-family: 'JetBrains Mono'; font-size: 9px; color: #888; margin-top: 4px; }
+        .dot.active { border-color: var(--color-3); color: var(--color-3); background: #fffdf5; box-shadow: 0 0 8px rgba(196,150,58,0.2); }
+        .step-label { font-size: 9px; font-weight: 600; text-transform: uppercase; line-height: 1.2; }
+        .step-date { font-family: 'JetBrains Mono'; font-size: 8px; color: #999; margin-top: 4px; }
 
-        /* Square KPI Tiles */
-        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-        .tile-header { padding: 20px; border-bottom: 1px solid var(--border); border-top: 4px solid var(--color-2); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .tile.declined .tile-header { border-top-color: #a34b4b; }
-        .tile.rest .tile-header { border-top-color: #777; }
-        .tile-title { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #666; }
-        .tile-count { font-family: 'Cormorant Garamond'; font-size: 42px; font-weight: bold; color: var(--text); }
+        /* Squares */
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px; }
+        .square-tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; aspect-ratio: 1 / 0.8; }
+        .tile-header { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; border-top: 5px solid var(--color-2); }
+        .tile-header:hover { background: #fafafa; }
+        .tile-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
+        .tile-val { font-family: 'Cormorant Garamond'; font-size: 56px; font-weight: bold; }
         
-        .collapse-content { display: none; padding: 0 15px 15px; background: #faf9f6; max-height: 300px; overflow-y: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
-        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
-        th { color: #888; text-transform: uppercase; }
-
-        /* Chart Tiles */
-        .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .chart-tile { background: var(--surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
-        canvas { max-height: 180px; }
+        .collapse-box { display: none; padding: 15px; border-top: 1px solid var(--border); background: #faf9f6; overflow-y: auto; max-height: 250px; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        th, td { text-align: left; padding: 6px; border-bottom: 1px solid #eee; }
+        
+        /* Interactive Charts */
+        .chart-tile { background: var(--surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); min-height: 400px; }
+        .list-display { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 11px; color: #555; height: 100px; overflow-y: auto; }
+        .list-header { font-weight: 600; color: var(--color-2); margin-bottom: 5px; text-transform: uppercase; font-size: 9px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; font-family:'Cormorant Garamond'; font-size: 28px;">Zurich Outreach Dashboard</h1>
-    <div style="font-size: 11px; opacity: 0.8;">Data Snapshot: 01. April 2026</div>
+    <h1 style="margin:0; font-family:'Cormorant Garamond'; font-size: 26px;">Zurich Campaign Intel</h1>
+    <div style="font-family:'JetBrains Mono'; font-size: 10px;">V.3 • 01 APR 2026</div>
 </header>
 
 <div class="container">
 
-    <div class="section-header">Outreach Timeline — Batch 1 (Total: 114)</div>
+    <div class="section-header">Timeline — Batch 1 (Total: 114)</div>
     <div class="card">
         <div class="timeline">
             <div class="step"><div class="dot done">✓</div><div class="step-label">Invite Email</div><div class="step-date">10.03 – 12.03</div></div>
@@ -65,29 +63,29 @@
             <div class="step"><div class="dot done">✓</div><div class="step-label">3. FU (Direct)</div><div class="step-date">27.03 – 31.03</div></div>
             <div class="step"><div class="dot"></div><div class="step-label">4. FU (Direct)</div><div class="step-date">07.04 – 10.04</div></div>
             <div class="step"><div class="dot"></div><div class="step-label">Final Conf.</div><div class="step-date">11.04 – 14.04</div></div>
-            <div class="step"><div class="dot active">★</div><div class="step-label">Roundtable</div><div class="step-date">15. April 2026</div></div>
+            <div class="step"><div class="dot active">★</div><div class="step-label">Roundtable</div><div class="step-date">15. APR 2026</div></div>
         </div>
     </div>
 
-    <div class="section-header">Outreach Timeline — Batch 2 (Total: 184)</div>
+    <div class="section-header">Timeline — Batch 2 (Total: 184)</div>
     <div class="card">
         <div class="timeline">
-            <div class="step"><div class="dot active">→</div><div class="step-label">Initial Invite</div><div class="step-date">01. April 2026</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">1. Follow-Up</div><div class="step-date">TBD</div></div>
-            <div class="step"><div class="dot"></div><div class="step-label">2. Follow-Up</div><div class="step-date">TBD</div></div>
+            <div class="step"><div class="dot active">→</div><div class="step-label">Initial Invite</div><div class="step-date">01.04.2026</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">1. FU (Direct)</div><div class="step-date">TBD</div></div>
+            <div class="step"><div class="dot"></div><div class="step-label">2. FU (Email)</div><div class="step-date">TBD</div></div>
             <div class="step" style="flex:2"></div>
-            <div class="step"><div class="dot">★</div><div class="step-label">Roundtable</div><div class="step-date">15. April 2026</div></div>
+            <div class="step"><div class="dot">★</div><div class="step-label">Roundtable</div><div class="step-date">15. APR 2026</div></div>
         </div>
     </div>
 
-    <div class="section-header">Campaign Response Clustering (Batch 1)</div>
     <div class="tile-grid">
-        <div class="tile">
-            <div class="tile-header" onclick="toggleCollapse('acc-list')">
-                <div><div class="tile-title">Accepted</div><div class="tile-count" style="color:var(--color-2)">7</div></div>
-                <div style="font-size: 18px;">▼</div>
+        <div class="square-tile">
+            <div class="tile-header" onclick="toggle('acc')">
+                <div class="tile-title">Accepted</div>
+                <div class="tile-val" style="color:var(--color-2)">6</div>
+                <div style="font-size:10px; margin-top:5px">Click for names ▼</div>
             </div>
-            <div id="acc-list" class="collapse-content">
+            <div id="acc" class="collapse-box">
                 <table>
                     <tr><th>Account</th><th>Type</th><th>Vol.</th></tr>
                     <tr><td>Arabella FO</td><td>SFO</td><td>1.0M</td></tr>
@@ -95,77 +93,126 @@
                     <tr><td>Elisir Capital</td><td>SFO</td><td>1.0M</td></tr>
                     <tr><td>Mutter Asset Mgmt</td><td>MFO</td><td>3.0M</td></tr>
                     <tr><td>Lombard Odier</td><td>Priv. Bank</td><td>5.0M</td></tr>
-                    <tr><td>Amana</td><td>MFO</td><td>6.0M</td></tr>
-                    <tr><td>StepStone</td><td>Advisor</td><td>-</td></tr>
+                    <tr><td>Amana</td><td>MFO</td><td>3.0M</td></tr>
                 </table>
             </div>
         </div>
-        <div class="tile declined">
-            <div class="tile-header" onclick="toggleCollapse('dec-list')">
-                <div><div class="tile-title">Declined</div><div class="tile-count" style="color:#a34b4b">106</div></div>
-                <div style="font-size: 18px;">▼</div>
+
+        <div class="square-tile">
+            <div class="tile-header" style="border-top-color:#a34b4b" onclick="toggle('dec')">
+                <div class="tile-title">Declined</div>
+                <div class="tile-val" style="color:#a34b4b">8</div>
+                <div style="font-size:10px; margin-top:5px">Click for names ▼</div>
             </div>
-            <div id="dec-list" class="collapse-content">
-                <table>
-                    <tr><th>Account</th><th>Type</th><th>Reason snippet</th></tr>
-                    <tr><td>Regotis Advisory</td><td>SFO</td><td>Will discuss later</td></tr>
-                    <tr><td>VermögensPartner</td><td>MFO</td><td>No investments in PM</td></tr>
-                    <tr><td>Revor PK</td><td>Pension</td><td>Strategy mismatch</td></tr>
-                    <tr><td>... (103 more)</td><td>-</td><td>-</td></tr>
-                </table>
-            </div>
-        </div>
-        <div class="tile rest">
-            <div class="tile-header" onclick="toggleCollapse('rest-list')">
-                <div><div class="tile-title">The Rest</div><div class="tile-count">1</div></div>
-                <div style="font-size: 18px;">▼</div>
-            </div>
-            <div id="rest-list" class="collapse-content">
+            <div id="dec" class="collapse-box">
                 <table>
                     <tr><th>Account</th><th>Type</th></tr>
-                    <tr><td>Zürcher Kantonalbank</td><td>Private Bank</td></tr>
+                    <tr><td>VermögensPartner</td><td>MFO</td></tr>
+                    <tr><td>Avalor</td><td>MFO</td></tr>
+                    <tr><td>Finad</td><td>MFO</td></tr>
+                    <tr><td>Actieninvest</td><td>SFO</td></tr>
+                    <tr><td>Oslo Family Office</td><td>MFO</td></tr>
+                    <tr><td>Survista</td><td>MFO</td></tr>
+                    <tr><td>Aretas Capital</td><td>MFO</td></tr>
+                    <tr><td>Invest-Partners</td><td>MFO</td></tr>
                 </table>
+            </div>
+        </div>
+
+        <div class="square-tile">
+            <div class="tile-header" style="border-top-color:#777" onclick="toggle('rest')">
+                <div class="tile-title">The Rest</div>
+                <div class="tile-val">100</div>
+                <div style="font-size:10px; margin-top:5px">Click for clusters ▼</div>
+            </div>
+            <div id="rest" class="collapse-box">
+                <div class="list-header">No Reaction (85)</div>
+                <div style="font-size:9px; margin-bottom:8px">Multiple accounts pending...</div>
+                <div class="list-header">Asset Class Fit (5)</div>
+                <div style="font-size:9px; margin-bottom:8px">Bayer. Versorgungskammer, etc.</div>
+                <div class="list-header">Timing/Capacity (10)</div>
+                <div style="font-size:9px;">Regotis Advisory, ZKB, etc.</div>
             </div>
         </div>
     </div>
 
-    <div class="chart-grid">
+    <div class="section-header">Client Mix (Click segments for company names)</div>
+    <div class="tile-grid">
         <div class="chart-tile">
-            <div class="tile-title" style="margin-bottom:15px">Client Mix — Batch 1</div>
+            <div class="tile-title">Batch 1 (n=114)</div>
             <canvas id="b1Chart"></canvas>
+            <div id="b1List" class="list-display">
+                <div class="list-header">Select a segment to view companies</div>
+            </div>
         </div>
-        <div class="chart-tile">
-            <div class="tile-title" style="margin-bottom:15px">Client Mix — Batch 2</div>
+        <div class="chart-tile" style="grid-column: span 2">
+            <div class="tile-title">Batch 2 (n=184)</div>
             <canvas id="b2Chart"></canvas>
+            <div id="b2List" class="list-display">
+                <div class="list-header">Select a segment to view companies</div>
+            </div>
         </div>
     </div>
 
 </div>
 
 <script>
-    function toggleCollapse(id) {
+    function toggle(id) {
         var el = document.getElementById(id);
         el.style.display = (el.style.display === "block") ? "none" : "block";
     }
 
-    const palette = ['#2d3f57', '#4a6741', '#c4963a', '#9ec64d', '#7a9e72', '#b8ceaf'];
-    
-    new Chart(document.getElementById('b1Chart'), {
+    const dataB1 = {
+        'MFO': ['Mutter AM', 'Amana', 'Avalor', 'Finad', 'Oslo FO', 'Survista', 'Aretas', 'VermögensPartner'],
+        'IAM': ['StepStone', 'Revor PK', 'Wealth Mgmt Zurich', 'Wydler AM'],
+        'SFO': ['Arabella FO', 'Elisir Capital', 'Actieninvest', 'Regotis Advisory'],
+        'Pension': ['Avanea PK', 'BAS PK', 'GastroSocial'],
+        'Other': ['Lombard Odier', 'ZKB', 'StepStone']
+    };
+
+    const dataB2 = {
+        'Pension': ['PK Georg Fischer', 'PK Bosch', 'Raiffeisen PK', 'Pax Versicherung', 'PK Thurgau'],
+        'IAM': ['Various Zurich Managers...']
+    };
+
+    const colors = ['#4a6741', '#c4963a', '#2d3f57', '#9ec64d', '#777'];
+
+    // Chart 1
+    const ctx1 = document.getElementById('b1Chart').getContext('2d');
+    const b1Chart = new Chart(ctx1, {
         type: 'doughnut',
         data: {
             labels: ['MFO', 'IAM', 'SFO', 'Pension', 'Other'],
-            datasets: [{ data: [51, 27, 21, 9, 6], backgroundColor: palette }]
+            datasets: [{ data: [51, 27, 21, 9, 6], backgroundColor: colors }]
         },
-        options: { plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 10 } } } } }
+        options: {
+            onClick: (evt, item) => {
+                if (item.length > 0) {
+                    const idx = item[0].index;
+                    const label = b1Chart.data.labels[idx];
+                    document.getElementById('b1List').innerHTML = `<div class="list-header">${label} Companies:</div>` + dataB1[label].join(', ');
+                }
+            }
+        }
     });
 
-    new Chart(document.getElementById('b2Chart'), {
-        type: 'doughnut',
+    // Chart 2
+    const ctx2 = document.getElementById('b2Chart').getContext('2d');
+    const b2Chart = new Chart(ctx2, {
+        type: 'pie',
         data: {
             labels: ['Pension', 'IAM'],
-            datasets: [{ data: [114, 70], backgroundColor: [palette[2], palette[1]] }]
+            datasets: [{ data: [114, 70], backgroundColor: [colors[1], colors[0]] }]
         },
-        options: { plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 10 } } } } }
+        options: {
+            onClick: (evt, item) => {
+                if (item.length > 0) {
+                    const idx = item[0].index;
+                    const label = b2Chart.data.labels[idx];
+                    document.getElementById('b2List').innerHTML = `<div class="list-header">${label} Companies:</div>` + dataB2[label].join(', ');
+                }
+            }
+        }
     });
 </script>
 </body>
