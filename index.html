@@ -20,7 +20,7 @@
 
         .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--nio-gold); margin: 50px 0 20px; border-left: 2px solid var(--nio-gold); padding-left: 10px; }
 
-        /* TIMELINES (LOCKED) */
+        /* TIMELINES (LOCKED AS PER PREVIOUS SPECS) */
         .card-timeline { background: var(--surface); padding: 50px 40px; border: 1px solid var(--border); margin-bottom: 30px; }
         .timeline { display: flex; justify-content: space-between; position: relative; width: 100%; }
         .timeline::before { content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 1px; background: var(--border); z-index: 0; }
@@ -50,9 +50,8 @@
         .tile-val { font-family: 'Cormorant Garamond'; font-size: 72px; color: var(--nio-gold); line-height: 0.8; }
         .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 15px; opacity: 0.6; font-weight: 600; }
         
-        .toggle-btn { background: none; border: none; color: var(--nio-gold); cursor: pointer; font-size: 16px; opacity: 0.5; transition: all 0.3s ease; }
-        .toggle-btn:hover { opacity: 1; transform: scale(1.2); }
-        .toggle-btn.active { transform: rotate(180deg); opacity: 1; }
+        .toggle-btn { background: none; border: none; color: var(--nio-gold); cursor: pointer; font-size: 16px; transition: all 0.3s ease; }
+        .toggle-btn.active { transform: rotate(180deg); }
 
         .details-pane { display: none; margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px; animation: slideIn 0.3s ease-out; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
@@ -112,12 +111,12 @@
                 <table>
                     <thead><tr><th>Company</th><th>Type</th><th style="text-align:right">Ticket</th></tr></thead>
                     <tbody>
+                        <tr><td>Arabella FO</td><td>SFO</td><td class="t-size">1M</td></tr>
+                        <tr><td>Amana</td><td>MFO</td><td class="t-size">3M</td></tr>
                         <tr><td>Avanea PK</td><td>Pension</td><td class="t-size">5M</td></tr>
-                        <tr><td>LGT</td><td>IAM</td><td class="t-size">5M</td></tr>
-                        <tr><td>Piguet Galland</td><td>IAM</td><td class="t-size">2M</td></tr>
-                        <tr><td>REYL</td><td>IAM</td><td class="t-size">2M</td></tr>
-                        <tr><td>Gonet</td><td>IAM</td><td class="t-size">2M</td></tr>
-                        <tr><td>Mirabaud</td><td>IAM</td><td class="t-size">2M</td></tr>
+                        <tr><td>Elisir Capital</td><td>SFO</td><td class="t-size">1M</td></tr>
+                        <tr><td>Mutter Asset Mgt</td><td>MFO</td><td class="t-size">3M</td></tr>
+                        <tr><td>Lombard Odier</td><td>Bank</td><td class="t-size">5M</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -125,7 +124,7 @@
 
         <div class="tile" id="tile-declined">
             <div class="tile-header">
-                <div class="tile-val" style="color:var(--decline-red)">8</div>
+                <div class="tile-val" style="color:var(--decline-red)">9</div>
                 <button class="toggle-btn" onclick="toggleDetails('declined')">▼</button>
             </div>
             <div class="tile-label">Declined</div>
@@ -133,14 +132,15 @@
                 <table>
                     <thead><tr><th>Company</th><th>Client Type</th></tr></thead>
                     <tbody>
-                        <tr><td>Aquila</td><td>IAM</td></tr>
-                        <tr><td>Quilvest</td><td>MFO</td></tr>
-                        <tr><td>TCA Asset Mgt</td><td>IAM</td></tr>
-                        <tr><td>One Swiss Bank</td><td>IAM</td></tr>
-                        <tr><td>Bordier & Cie</td><td>IAM</td></tr>
-                        <tr><td>Cuvry & Cie</td><td>MFO</td></tr>
-                        <tr><td>Decisive Capital</td><td>MFO</td></tr>
-                        <tr><td>Sarasin</td><td>IAM</td></tr>
+                        <tr><td>VermögensPartner</td><td>MFO</td></tr>
+                        <tr><td>Avalor</td><td>MFO</td></tr>
+                        <tr><td>Finad</td><td>MFO</td></tr>
+                        <tr><td>Actieninvest</td><td>SFO</td></tr>
+                        <tr><td>Oslo Family Office</td><td>MFO</td></tr>
+                        <tr><td>Survista</td><td>MFO</td></tr>
+                        <tr><td>Aretas Capital</td><td>MFO</td></tr>
+                        <tr><td>Invest-Partners</td><td>MFO</td></tr>
+                        <tr><td>Rolem Invest AG</td><td>SFO</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -148,16 +148,16 @@
 
         <div class="tile" id="tile-rest">
             <div class="tile-header">
-                <div class="tile-val" style="color:#666">100</div>
+                <div class="tile-val" style="color:#666">99</div>
                 <button class="toggle-btn" onclick="toggleDetails('rest')">▼</button>
             </div>
             <div class="tile-label">The Rest (Reason Given)</div>
             <div class="details-pane" id="details-rest">
-                <div class="cluster-item"><span class="cluster-name">Active Interest / Reviewing Deck</span><span class="cluster-count">35</span></div>
-                <div class="cluster-item"><span class="cluster-name">Pipeline / Allocation (H2/Q3)</span><span class="cluster-count">30</span></div>
+                <div class="cluster-item"><span class="cluster-name">Active Interest / Reviewing</span><span class="cluster-count">35</span></div>
+                <div class="cluster-item"><span class="cluster-name">Pipeline / Allocation Cycle</span><span class="cluster-count">30</span></div>
                 <div class="cluster-item"><span class="cluster-name">Strategy Mismatch</span><span class="cluster-count">20</span></div>
                 <div class="cluster-item"><span class="cluster-name">No Specific Feedback</span><span class="cluster-count">10</span></div>
-                <div class="cluster-item"><span class="cluster-name">Meeting Conflict</span><span class="cluster-count">5</span></div>
+                <div class="cluster-item"><span class="cluster-name">Meeting Conflict</span><span class="cluster-count">4</span></div>
             </div>
         </div>
     </div>
