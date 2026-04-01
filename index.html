@@ -13,12 +13,10 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 30px; }
         .container { max-width: 1400px; margin: auto; }
         
-        /* Header nach Vorgabe */
         header { 
             display: flex; justify-content: space-between; align-items: flex-end;
             padding-bottom: 20px; border-bottom: 3px solid var(--color-1); margin-bottom: 40px;
         }
-        .header-left { text-align: left; }
         .header-left h1 { margin: 0; font-size: 24px; letter-spacing: 1.5px; color: var(--color-1); font-weight: 600; text-transform: uppercase; }
         .header-left p { margin: 8px 0 0; font-size: 15px; font-weight: 600; color: #555; text-transform: uppercase; }
         .header-right { text-align: right; text-transform: uppercase; }
@@ -29,25 +27,22 @@
 
         /* KPI Squares */
         .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 30px; }
-        .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; display: flex; flex-direction: column; min-height: 280px; }
+        .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; display: flex; flex-direction: column; min-height: 250px; }
         .tile-header { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; border-top: 6px solid var(--color-2); }
-        .tile-val { font-family: 'Cormorant Garamond'; font-size: 64px; font-weight: bold; color: var(--text); }
+        .tile-val { font-family: 'Cormorant Garamond'; font-size: 64px; font-weight: bold; }
         .tile-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #777; margin-bottom: 10px; }
         
         .collapse-content { display: none; padding: 20px; background: #faf9f6; border-top: 1px solid var(--border); max-height: 300px; overflow-y: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 12px; }
         th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; }
-        th { color: #888; text-transform: uppercase; font-size: 10px; }
 
-        /* Charts */
-        .chart-row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 30px; align-items: start; }
-        .chart-card { background: white; padding: 25px; border-radius: 4px; border: 1px solid var(--border); position: relative; }
-        .chart-container { height: 300px; position: relative; }
+        /* Charts - Same Size Implementation */
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 50px; }
+        .chart-card { background: white; padding: 25px; border-radius: 4px; border: 1px solid var(--border); box-sizing: border-box; }
+        .chart-wrapper { height: 320px; width: 100%; position: relative; display: flex; justify-content: center; }
         
-        .data-table-overlay { display: none; margin-top: 20px; border-top: 2px solid var(--color-2); padding-top: 15px; animation: fadeIn 0.3s; }
-        .close-btn { font-size: 10px; color: #a34b4b; cursor: pointer; text-transform: uppercase; font-weight: bold; float: right; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .data-table-overlay { display: none; margin-top: 20px; border-top: 2px solid var(--color-2); padding-top: 15px; }
+        .close-btn { font-size: 10px; color: #a34b4b; cursor: pointer; text-transform: uppercase; font-weight: bold; float: right; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -69,7 +64,7 @@
             <div class="tile-header" onclick="toggle('acc')">
                 <div class="tile-label">Accepted</div>
                 <div class="tile-val" style="color:var(--color-2)">6</div>
-                <div style="font-size:10px; color:#999; margin-top:10px">Details ▼</div>
+                <div style="font-size:10px; color:#999; margin-top:10px">DETAILS ▼</div>
             </div>
             <div id="acc" class="collapse-content">
                 <table>
@@ -88,7 +83,7 @@
             <div class="tile-header" style="border-top-color:#a34b4b" onclick="toggle('dec')">
                 <div class="tile-label">Declined</div>
                 <div class="tile-val" style="color:#a34b4b">8</div>
-                <div style="font-size:10px; color:#999; margin-top:10px">Details ▼</div>
+                <div style="font-size:10px; color:#999; margin-top:10px">DETAILS ▼</div>
             </div>
             <div id="dec" class="collapse-content">
                 <table>
@@ -109,23 +104,21 @@
             <div class="tile-header" style="border-top-color:#777" onclick="toggle('rest')">
                 <div class="tile-label">The Rest</div>
                 <div class="tile-val">100</div>
-                <div style="font-size:10px; color:#999; margin-top:10px">Cluster Stats ▼</div>
+                <div style="font-size:10px; color:#999; margin-top:10px">CLUSTERS ▼</div>
             </div>
             <div id="rest" class="collapse-content">
-                <div style="margin-bottom:15px">
-                    <p><strong>No Reaction:</strong> 85 accounts</p>
-                    <p><strong>Asset Class Fit:</strong> 5 accounts</p>
-                    <p><strong>Timing/Capacity:</strong> 10 accounts</p>
-                </div>
+                <p><strong>No Reaction:</strong> 85 accounts</p>
+                <p><strong>Asset Class Fit:</strong> 5 accounts</p>
+                <p><strong>Timing/Capacity:</strong> 10 accounts</p>
             </div>
         </div>
     </div>
 
-    <div class="section-header">Client Mix (Click segments for details)</div>
+    <div class="section-header">Client Mix (Click segments for table)</div>
     <div class="chart-row">
         <div class="chart-card">
             <div class="tile-label">Batch 1 (n=114)</div>
-            <div class="chart-container"><canvas id="b1Chart"></canvas></div>
+            <div class="chart-wrapper"><canvas id="b1Chart"></canvas></div>
             <div id="b1Table" class="data-table-overlay">
                 <span class="close-btn" onclick="hideTable('b1Table')">[ Schließen ]</span>
                 <div id="b1TableContent"></div>
@@ -134,14 +127,13 @@
         
         <div class="chart-card">
             <div class="tile-label">Batch 2 (n=184)</div>
-            <div class="chart-container"><canvas id="b2Chart"></canvas></div>
+            <div class="chart-wrapper"><canvas id="b2Chart"></canvas></div>
             <div id="b2Table" class="data-table-overlay">
                 <span class="close-btn" onclick="hideTable('b2Table')">[ Schließen ]</span>
                 <div id="b2TableContent"></div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
@@ -161,45 +153,34 @@
     };
 
     const colors = ['#4a6741', '#c4963a', '#2d3f57', '#9ec64d', '#777'];
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } }
+    };
 
-    // Chart Batch 1
     const ctx1 = document.getElementById('b1Chart').getContext('2d');
     const b1Chart = new Chart(ctx1, {
         type: 'doughnut',
         data: { labels: ['MFO', 'IAM', 'SFO', 'Pension', 'Other'], datasets: [{ data: [51, 27, 21, 9, 6], backgroundColor: colors }] },
-        options: {
-            onClick: (e, item) => {
-                if(!item[0]) return;
-                const label = b1Chart.data.labels[item[0].index];
-                showTable('b1Table', label);
-            }
-        }
+        options: { ...options, onClick: (e, item) => { if(item[0]) showTable('b1Table', b1Chart.data.labels[item[0].index]); } }
     });
 
-    // Chart Batch 2
     const ctx2 = document.getElementById('b2Chart').getContext('2d');
     const b2Chart = new Chart(ctx2, {
-        type: 'pie',
+        type: 'doughnut', // changed to doughnut for visual consistency in size
         data: { labels: ['Pension', 'IAM'], datasets: [{ data: [114, 70], backgroundColor: [colors[1], colors[0]] }] },
-        options: {
-            onClick: (e, item) => {
-                if(!item[0]) return;
-                const label = b2Chart.data.labels[item[0].index];
-                showTable('b2Table', label);
-            }
-        }
+        options: { ...options, onClick: (e, item) => { if(item[0]) showTable('b2Table', b2Chart.data.labels[item[0].index]); } }
     });
 
     function showTable(tableId, category) {
         const overlay = document.getElementById(tableId);
         const content = document.getElementById(tableId + 'Content');
         overlay.style.display = 'block';
-        
         let html = `<strong>${category} Accounts:</strong><table><tr><th>Company Name</th></tr>`;
         const list = dataLists[category] || ['Diverse Accounts...'];
         list.forEach(name => html += `<tr><td>${name}</td></tr>`);
-        html += `</table>`;
-        content.innerHTML = html;
+        content.innerHTML = html + `</table>`;
     }
 </script>
 </body>
