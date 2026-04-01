@@ -1,132 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="eng">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIP VI – Zurich Roundtable</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-/* ─── STYLES REMAIN 100% ORIGINAL ─── */
-:root {
-  --olive: #4a6741; --olive-mid: #7a9e72; --olive-soft: #b8ceaf; --olive-pale: #dae8d4;
-  --gold: #c4963a; --gold-mid: #d4b06a; --gold-soft: #e8d4a0; --gold-pale: #f4ead0;
-  --navy: #2d3f57; --navy-mid: #4e6a88; --navy-soft: #9ab4cc; --navy-pale: #ccdce8;
-  --blue: #4e7a92; --bg: #f5f3ee; --surface: #ffffff; --surface2: #f0ede6;
-  --border: #ddd8cc; --border-light: #e8e4da; --text: #1e2a1e; --text-muted: #8a9080;
-  --c-confirmed-bg: rgba(74,103,65,0.08); --c-soft-bg: rgba(196,150,58,0.1);
-}
-* { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); font-size:13px; line-height:1.5; }
-.header { background: var(--navy); padding: 0 48px; display: flex; align-items: stretch; justify-content: space-between; position: relative; overflow: hidden; }
-.header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--olive) 0%, var(--gold) 40%, var(--blue) 80%, transparent 100%); }
-.header-left { padding: 28px 0; border-right: 1px solid rgba(255,255,255,0.08); padding-right: 40px; }
-.header-left h1 { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:#fff; }
-.header-left h1 em { color:var(--gold-mid); font-style:normal; }
-.header-left p { color:var(--navy-soft); font-size:11px; margin-top:5px; text-transform:uppercase; letter-spacing:0.1em; }
-.header-right { display:flex; align-items:center; gap:48px; padding: 28px 0 28px 40px; }
-.header-meta { text-align:right; }
-.header-meta .meta-label { font-size:10px; text-transform:uppercase; color:var(--navy-soft); }
-.header-meta .meta-value { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--gold-mid); font-weight:600; display:block; }
-.main { padding:32px 48px; max-width:1700px; }
-.sec-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.14em; color:var(--text-muted); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
-.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
-.ctl-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px 44px 32px; position: relative; }
-.ctl-rail { display:flex; align-items:flex-start; position:relative; }
-.ctl-step { display:flex; flex-direction:column; align-items:center; flex:1; z-index:1; }
-.ctl-node { width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono'; font-size:14px; }
-.ctl-node.done { background: var(--c-confirmed-bg); border: 2px solid var(--olive); color: var(--olive); }
-.ctl-node.active { background: var(--c-soft-bg); border: 2px solid var(--gold); color: var(--gold); }
-.ctl-step-body { margin-top:14px; text-align:center; }
-.ctl-step-title { font-size:13px; font-weight:600; }
-.ctl-step-date { margin-top:6px; font-family:'JetBrains Mono'; font-size:10px; padding:3px 10px; border-radius:4px; display:inline-block; }
-.ctl-step-date.done { background:var(--olive-pale); color:var(--olive); }
-.ctl-step-date.active { background:var(--gold-pale); color:var(--gold); }
-.kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:28px; }
-.kpi-tile { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; position:relative; border-top:3px solid var(--border); }
-.kpi-tile.confirmed { border-top-color:var(--olive); }
-.kpi-tile.active-launch { border-top-color:var(--blue); }
-.kpi-num { font-family:'Cormorant Garamond'; font-size:48px; font-weight:700; line-height:1; color:var(--navy); }
-.kpi-label { font-size:10px; font-weight:600; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIP VI – Zurich Executive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Ihre definierte Farbpalette */
+            --color-1: #2d3f57; /* Dunkelblau (1. v.l.) */
+            --color-2: #4a6741; /* Dunkelgrün (2. v.l. - Dominant) */
+            --color-3: #c4963a; /* Gold (3. v.l. - Dominant) */
+            --color-6: #9ec64d; /* Hellgrün (6. v.l. - Akzent) */
+            --bg: #f5f3ee;
+            --surface: #ffffff;
+            --border: #ddd8cc;
+            --text: #1e2a1e;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.5; }
+        .container { max-width: 1400px; margin: auto; }
+        
+        header { 
+            background: var(--color-1); color: white; padding: 30px 50px; 
+            border-bottom: 4px solid var(--color-3); display: flex; justify-content: space-between; align-items: center;
+        }
+        header h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin: 0; }
+        
+        .section-title { 
+            font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; 
+            color: var(--color-2); margin: 40px 0 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px;
+        }
+
+        /* Timeline Styles */
+        .timeline-box { background: var(--surface); padding: 30px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; position: relative; }
+        .timeline { display: flex; justify-content: space-between; position: relative; }
+        .timeline::before { content: ''; position: absolute; top: 25px; left: 50px; right: 50px; height: 2px; background: #eee; z-index: 0; }
+        .step { position: relative; z-index: 1; text-align: center; width: 20%; }
+        .dot { width: 50px; height: 50px; background: white; border: 2px solid #eee; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .dot.done { border-color: var(--color-2); color: var(--color-2); background: #f0f4ef; }
+        .dot.active { border-color: var(--color-3); color: var(--color-3); box-shadow: 0 0 10px rgba(196,150,58,0.3); }
+        .step-label { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+        .step-date { font-family: 'JetBrains Mono'; font-size: 10px; color: #777; background: #f9f9f9; padding: 2px 6px; border-radius: 4px; }
+
+        /* KPI Tiles */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .tile { background: var(--surface); padding: 20px; border-radius: 10px; border: 1px solid var(--border); border-top: 4px solid var(--color-2); transition: transform 0.2s; }
+        .tile:hover { transform: translateY(-3px); }
+        .tile-val { font-family: 'Cormorant Garamond'; font-size: 36px; font-weight: bold; color: var(--color-2); }
+        .tile-label { font-size: 10px; text-transform: uppercase; font-weight: 600; color: #888; }
+        .tile.gold { border-top-color: var(--color-3); }
+        .tile.gold .tile-val { color: var(--color-3); }
+
+        /* Collapsible */
+        .collapsible { background: var(--color-1); color: white; cursor: pointer; padding: 18px; width: 100%; border: none; text-align: left; outline: none; font-size: 15px; border-radius: 8px; font-weight: 600; display: flex; justify-content: space-between; }
+        .content { padding: 0 18px; display: none; overflow: hidden; background-color: white; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
+        th { font-size: 11px; text-transform: uppercase; color: #888; }
+
+        /* Charts */
+        .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
+        .chart-container { background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
+    </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <h1>CIP <em>Infrastructure VI</em> — Zurich Dashboard</h1>
-    <p>Global Reach: 452 · NIO Partners</p>
-  </div>
-  <div class="header-right">
-    <div class="header-meta">
-      <span class="meta-label">Zurich Pool</span>
-      <span class="meta-value">123 Contacts</span>
+<header>
+    <h1>CIP VI — Zurich Campaign Intelligence</h1>
+    <div style="text-align: right">
+        <div style="font-size: 10px; text-transform: uppercase">Global Contacts</div>
+        <div style="font-family: 'Cormorant Garamond'; font-size: 24px; color: var(--color-3)">452</div>
     </div>
-    <div class="header-meta" style="border-left:1px solid rgba(255,255,255,0.08);padding-left:36px;">
-      <span class="meta-label">Event Date</span>
-      <span class="meta-value">15 April 2026</span>
+</header>
+
+<div class="container">
+    
+    <div class="section-title">Campaign Outreach Timeline — Batch 1 (IAM & MFO)</div>
+    <div class="timeline-box">
+        <div class="timeline">
+            <div class="step">
+                <div class="dot done">✓</div>
+                <div class="step-label">Invite Email</div>
+                <div class="step-date">10 March 2026</div>
+            </div>
+            <div class="step">
+                <div class="dot done">✓</div>
+                <div class="step-label">1. Follow-Up (Direct)</div>
+                <div class="step-date">17 March 2026</div>
+            </div>
+            <div class="step">
+                <div class="dot done">✓</div>
+                <div class="step-label">2. Follow-Up (Email)</div>
+                <div class="step-date">23 March 2026</div>
+            </div>
+            <div class="step">
+                <div class="dot">4</div>
+                <div class="step-label">3. Follow-Up (Direct)</div>
+                <div class="step-date">w/c 07 April 2026</div>
+            </div>
+            <div class="step">
+                <div class="dot">★</div>
+                <div class="step-label">CIP Breakfast</div>
+                <div class="step-date">15 April 2026</div>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="section-title">Campaign Outreach Timeline — Batch 2 (Pensionskassen)</div>
+    <div class="timeline-box">
+        <div class="timeline">
+            <div class="step">
+                <div class="dot active">→</div>
+                <div class="step-label">Initial Invite</div>
+                <div class="step-date">01 April 2026</div>
+            </div>
+            <div class="step">
+                <div class="dot">2</div>
+                <div class="step-label">1. Follow-Up</div>
+                <div class="step-date">TBD</div>
+            </div>
+            <div class="step" style="width: 60%"></div> <div class="step">
+                <div class="dot">★</div>
+                <div class="step-label">CIP Breakfast</div>
+                <div class="step-date">15 April 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">Zurich Reachout Metrics (Excel K1 - P1)</div>
+    <div class="grid">
+        <div class="tile"><div class="tile-label">1. Follow-Up (Direct)</div><div class="tile-val">48</div></div>
+        <div class="tile"><div class="tile-label">2. Follow-Up (E-mail)</div><div class="tile-val">33</div></div>
+        <div class="tile"><div class="tile-label">3. Follow-Up (Direct)</div><div class="tile-val">0</div></div>
+        <div class="tile"><div class="tile-label">4. Follow-Up (Direct)</div><div class="tile-val">0</div></div>
+        <div class="tile"><div class="tile-label">Final Confirmation</div><div class="tile-val">6</div></div>
+    </div>
+
+    <div class="section-title">Sentiment & Decline Analysis (Spalte Q)</div>
+    <div class="grid">
+        <div class="tile gold"><div class="tile-label">Asset Class Fit</div><div class="tile-val">8</div></div>
+        <div class="tile gold"><div class="tile-label">Timing/Capacity</div><div class="tile-val">12</div></div>
+        <div class="tile gold"><div class="tile-label">Strategy Mismatch</div><div class="tile-val">5</div></div>
+        <div class="tile gold"><div class="tile-label">No Reaction Yet</div><div class="tile-val">92</div></div>
+    </div>
+
+    <div class="section-title">Registration Details</div>
+    <button type="button" class="collapsible">
+        <span>CONFIRMED ATTENDEES: 6</span>
+        <span>Click to expand ▼</span>
+    </button>
+    <div class="content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Account Name</th>
+                    <th>Name</th>
+                    <th>Account Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Arabella FO</td><td>Jens Dreifuss</td><td>Single Family Office</td></tr>
+                <tr><td>Avanea PK</td><td>Thomas Hug</td><td>Insti-Pension</td></tr>
+                <tr><td>Elisir Capital</td><td>Sandra Stohler</td><td>Single Family Office</td></tr>
+                <tr><td>Mutter Asset Management</td><td>Lina Malisauskaite</td><td>Multi Family Office</td></tr>
+                <tr><td>Lombard Odier</td><td>Ulrich Dübendorfer</td><td>Private Bank</td></tr>
+                <tr><td>Amana</td><td>Katrin Nueesch</td><td>Multi Family Office</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-container">
+            <div class="tile-label" style="margin-bottom: 15px;">Account Types — Batch 1</div>
+            <canvas id="chartBatch1"></canvas>
+        </div>
+        <div class="chart-container">
+            <div class="tile-label" style="margin-bottom: 15px;">Account Types — Batch 2 (New)</div>
+            <canvas id="chartBatch2"></canvas>
+        </div>
+    </div>
+
 </div>
 
-<div class="main">
-  <div class="sec-label">Outreach Timeline (Multi-Day Tracking)</div>
-  <div class="ctl-card">
-    <div class="ctl-rail">
-      <div class="ctl-step">
-        <div class="ctl-node done">✓</div>
-        <div class="ctl-step-body">
-          <div class="ctl-step-title">Batch 1: Invite</div>
-          <div class="ctl-step-date done">10.03 – 12.03</div>
-        </div>
-      </div>
-      <div class="ctl-step">
-        <div class="ctl-node done">✓</div>
-        <div class="ctl-step-body">
-          <div class="ctl-step-title">1st Follow-Up Direct</div>
-          <div class="ctl-step-date done">17.03 – 21.03</div>
-        </div>
-      </div>
-      <div class="ctl-step">
-        <div class="ctl-node done">✓</div>
-        <div class="ctl-step-body">
-          <div class="ctl-step-title">2nd Follow-Up Email</div>
-          <div class="ctl-step-date done">23.03 – 26.03</div>
-        </div>
-      </div>
-      <div class="ctl-step">
-        <div class="ctl-node active">→</div>
-        <div class="ctl-step-body">
-          <div class="ctl-step-title" style="color:var(--gold)">Batch 2: Launch</div>
-          <div class="ctl-step-date active">01 April 2026</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<script>
+    // Collapsible Logic
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
 
-  <div class="sec-label">Key Performance Indicators</div>
-  <div class="kpi-grid">
-    <div class="kpi-tile confirmed">
-      <div class="kpi-label">Confirmed (B1)</div>
-      <div class="kpi-num" style="color:var(--olive)">7</div>
-    </div>
-    <div class="kpi-tile" style="border-top-color:var(--gold)">
-      <div class="kpi-label">Confirmed Vol.</div>
-      <div class="kpi-num" style="color:var(--gold)">31.0M</div>
-    </div>
-    <div class="kpi-tile active-launch" style="border-top-color:var(--blue)">
-      <div class="kpi-label">New Invites (B2)</div>
-      <div class="kpi-num" style="color:var(--blue)">58</div>
-    </div>
-    <div class="kpi-tile">
-      <div class="kpi-label">Soft Interest</div>
-      <div class="kpi-num">7</div>
-    </div>
-    <div class="kpi-tile">
-      <div class="kpi-label">No Answer (B1)</div>
-      <div class="kpi-num">33</div>
-    </div>
-  </div>
-</div>
+    // Chart Data
+    const colors = ['#2d3f57', '#4a6741', '#c4963a', '#9ec64d', '#ddd8cc'];
+    
+    new Chart(document.getElementById('chartBatch1'), {
+        type: 'pie',
+        data: {
+            labels: ['IAM', 'Multi Family Office', 'Single Family Office', 'Private Bank'],
+            datasets: [{
+                data: [34, 18, 9, 4],
+                backgroundColor: colors
+            }]
+        },
+        options: { plugins: { legend: { position: 'bottom' } } }
+    });
+
+    new Chart(document.getElementById('chartBatch2'), {
+        type: 'pie',
+        data: {
+            labels: ['Insti-Pension', 'IAM', 'Multi Family Office'],
+            datasets: [{
+                data: [42, 10, 6],
+                backgroundColor: colors
+            }]
+        },
+        options: { plugins: { legend: { position: 'bottom' } } }
+    });
+</script>
 
 </body>
 </html>
