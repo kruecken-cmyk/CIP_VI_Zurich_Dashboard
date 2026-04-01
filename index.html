@@ -9,6 +9,7 @@
         :root {
             --nio-dark: #1a1c18; --nio-gold: #c4963a; --nio-green: #4a6741; 
             --nio-text: #e5e7eb; --surface: #242622; --border: #3a3d37;
+            --decline-red: #a34b4b;
         }
         body { font-family: 'Inter', sans-serif; background: var(--nio-dark); color: var(--nio-text); margin: 0; padding: 40px; }
         .container { max-width: 1350px; margin: auto; }
@@ -20,36 +21,42 @@
 
         .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--nio-gold); margin: 50px 0 20px; border-left: 2px solid var(--nio-gold); padding-left: 10px; }
 
+        /* LOCKED TIMELINES - NO CHANGES */
         .card-timeline { background: var(--surface); padding: 50px 40px; border: 1px solid var(--border); margin-bottom: 30px; }
         .timeline { display: flex; justify-content: space-between; position: relative; width: 100%; }
         .timeline::before { content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 1px; background: var(--border); z-index: 0; }
-        
         .step { position: relative; z-index: 1; text-align: center; flex: 1; }
         .dot { width: 16px; height: 16px; background: var(--nio-dark); border: 2px solid var(--border); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; }
-        
         .dot.done { background: var(--nio-green); border-color: var(--nio-green); color: white; }
-        .dot.active { 
-            background: var(--nio-gold); border-color: var(--nio-gold); 
-            box-shadow: 0 0 15px var(--nio-gold); 
-            animation: pulse 2s infinite;
-        }
+        .dot.active { background: var(--nio-gold); border-color: var(--nio-gold); box-shadow: 0 0 15px var(--nio-gold); animation: pulse 2s infinite; }
         .dot.star { border-color: var(--nio-gold); color: var(--nio-gold); font-size: 14px; }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(196, 150, 58, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(196, 150, 58, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(196, 150, 58, 0); }
-        }
-
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(196, 150, 58, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(196, 150, 58, 0); } 100% { box-shadow: 0 0 0 0 rgba(196, 150, 58, 0); } }
         .step-label { font-size: 10px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; color: var(--nio-text); opacity: 0.8; display: block; margin-bottom: 6px; min-height: 24px; line-height: 1.2; }
         .step-date { font-family: 'JetBrains Mono'; font-size: 9px; opacity: 0.5; color: var(--nio-gold); display: block; }
         .step-count { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--nio-text); font-weight: bold; margin-top: 4px; display: block; }
 
-        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
-        .tile { background: var(--surface); border: 1px solid var(--border); text-align: center; padding: 40px 20px; }
+        /* INTERACTIVE KPI TILES */
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+        .tile { background: var(--surface); border: 1px solid var(--border); padding: 30px; position: relative; transition: all 0.3s ease; }
+        .tile-header { display: flex; justify-content: space-between; align-items: flex-start; }
         .tile-val { font-family: 'Cormorant Garamond'; font-size: 64px; color: var(--nio-gold); line-height: 1; }
-        .tile-sub-val { font-size: 13px; opacity: 0.8; margin-top: 5px; }
-        .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 15px; opacity: 0.5; }
+        .tile-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; opacity: 0.5; }
+        .tile-sub-val { font-size: 13px; opacity: 0.8; margin-top: 5px; color: var(--nio-text); }
+        
+        .toggle-btn { background: none; border: none; color: var(--nio-gold); cursor: pointer; font-size: 18px; padding: 0; transition: transform 0.3s; }
+        .toggle-btn.active { transform: rotate(180deg); }
+
+        .details-pane { display: none; margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px; text-align: left; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        th { text-align: left; text-transform: uppercase; letter-spacing: 1px; opacity: 0.4; padding-bottom: 10px; font-weight: 400; }
+        td { padding: 8px 0; border-bottom: 1px solid #ffffff05; }
+        .t-size { font-family: 'JetBrains Mono'; color: var(--nio-gold); font-weight: bold; text-align: right; }
+        
+        .cluster-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #ffffff05; }
+        .cluster-name { font-weight: 600; font-size: 11px; }
+        .cluster-count { font-family: 'JetBrains Mono'; color: var(--nio-gold); }
     </style>
 </head>
 <body>
@@ -66,96 +73,103 @@
     <div class="section-title">Timeline Batch 1 (Target: 184)</div>
     <div class="card-timeline">
         <div class="timeline">
-            <div class="step">
-                <div class="dot done">✔</div>
-                <span class="step-label">Invitation</span>
-                <span class="step-date">10.03</span>
-                <span class="step-count">184</span>
-            </div>
-            <div class="step">
-                <div class="dot done">✔</div>
-                <span class="step-label">1. Follow-Up (Direct)</span>
-                <span class="step-date">17.03 - 18.03</span>
-                <span class="step-count">55</span>
-            </div>
-            <div class="step">
-                <div class="dot done">✔</div>
-                <span class="step-label">1. Reminder (E-mail)</span>
-                <span class="step-date">23.03</span>
-                <span class="step-count">111</span>
-            </div>
-            <div class="step">
-                <div class="dot done">✔</div>
-                <span class="step-label">3. Follow-Up (Direct)</span>
-                <span class="step-date">23.03 - 30.03</span>
-                <span class="step-count">59</span>
-            </div>
-            <div class="step">
-                <div class="dot done">✔</div>
-                <span class="step-label">4. Follow-Up (Direct)</span>
-                <span class="step-date">26.03 - 30.03</span>
-                <span class="step-count">6</span>
-            </div>
-            <div class="step">
-                <div class="dot"></div>
-                <span class="step-label">Final Confirmation</span>
-                <span class="step-date">13.04</span>
-                <span class="step-count">—</span>
-            </div>
-            <div class="step">
-                <div class="dot star">★</div>
-                <span class="step-label">Roundtable Event</span>
-                <span class="step-date">15.04</span>
-                <span class="step-count">—</span>
-            </div>
+            <div class="step"><div class="dot done">✔</div><span class="step-label">Invitation</span><span class="step-date">10.03</span><span class="step-count">184</span></div>
+            <div class="step"><div class="dot done">✔</div><span class="step-label">1. Follow-Up (Direct)</span><span class="step-date">17.03 - 18.03</span><span class="step-count">55</span></div>
+            <div class="step"><div class="dot done">✔</div><span class="step-label">1. Reminder (E-mail)</span><span class="step-date">23.03</span><span class="step-count">111</span></div>
+            <div class="step"><div class="dot done">✔</div><span class="step-label">3. Follow-Up (Direct)</span><span class="step-date">23.03 - 30.03</span><span class="step-count">59</span></div>
+            <div class="step"><div class="dot done">✔</div><span class="step-label">4. Follow-Up (Direct)</span><span class="step-date">26.03 - 30.03</span><span class="step-count">6</span></div>
+            <div class="step"><div class="dot"></div><span class="step-label">Final Confirmation</span><span class="step-date">13.04</span><span class="step-count">—</span></div>
+            <div class="step"><div class="dot star">★</div><span class="step-label">Roundtable Event</span><span class="step-date">15.04</span><span class="step-count">—</span></div>
         </div>
     </div>
 
     <div class="section-title">Timeline Batch 2 (Target: 283)</div>
     <div class="card-timeline">
         <div class="timeline">
-            <div class="step">
-                <div class="dot active"></div>
-                <span class="step-label">Invitation</span>
-                <span class="step-date">01.04</span>
-                <span class="step-count">283</span>
-            </div>
-            <div class="step">
-                <div class="dot"></div>
-                <span class="step-label">1. Follow-Up</span>
-                <span class="step-date">08.04</span>
-                <span class="step-count">—</span>
-            </div>
-            <div class="step">
-                <div class="dot"></div>
-                <span class="step-label">2. Follow-Up</span>
-                <span class="step-date">13.04</span>
-                <span class="step-count">—</span>
-            </div>
-            <div class="step">
-                <div class="dot star">★</div>
-                <span class="step-label">Roundtable Event</span>
-                <span class="step-date">15.04</span>
-                <span class="step-count">—</span>
-            </div>
+            <div class="step"><div class="dot active"></div><span class="step-label">Invitation</span><span class="step-date">01.04</span><span class="step-count">283</span></div>
+            <div class="step"><div class="dot"></div><span class="step-label">1. Follow-Up</span><span class="step-date">08.04</span><span class="step-count">—</span></div>
+            <div class="step"><div class="dot"></div><span class="step-label">2. Follow-Up</span><span class="step-date">13.04</span><span class="step-count">—</span></div>
+            <div class="step"><div class="dot star">★</div><span class="step-label">Roundtable Event</span><span class="step-date">15.04</span><span class="step-count">—</span></div>
         </div>
     </div>
 
     <div class="tile-grid">
-        <div class="tile">
-            <div class="tile-val">6</div>
-            <div class="tile-sub-val">CHF 18M Potential</div>
+        <div class="tile" id="tile-accepted">
+            <div class="tile-header">
+                <div>
+                    <div class="tile-val">6</div>
+                    <div class="tile-sub-val">CHF 18M Potential</div>
+                </div>
+                <button class="toggle-btn" onclick="toggleDetails('accepted')">▼</button>
+            </div>
             <div class="tile-label">Accepted</div>
+            <div class="details-pane" id="details-accepted">
+                <table>
+                    <thead><tr><th>Company</th><th>Type</th><th style="text-align:right">Ticket</th></tr></thead>
+                    <tbody>
+                        <tr><td>Avanea PK</td><td>Pension</td><td class="t-size">5M</td></tr>
+                        <tr><td>LGT</td><td>IAM</td><td class="t-size">5M</td></tr>
+                        <tr><td>Piguet Galland</td><td>IAM</td><td class="t-size">2M</td></tr>
+                        <tr><td>REYL</td><td>IAM</td><td class="t-size">2M</td></tr>
+                        <tr><td>Gonet</td><td>IAM</td><td class="t-size">2M</td></tr>
+                        <tr><td>Mirabaud</td><td>IAM</td><td class="t-size">2M</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="tile">
-            <div class="tile-val" style="color:#a34b4b">8</div>
+
+        <div class="tile" id="tile-declined">
+            <div class="tile-header">
+                <div>
+                    <div class="tile-val" style="color:var(--decline-red)">8</div>
+                </div>
+                <button class="toggle-btn" onclick="toggleDetails('declined')">▼</button>
+            </div>
             <div class="tile-label">Declined</div>
+            <div class="details-pane" id="details-declined">
+                <table>
+                    <thead><tr><th>Company</th><th>Client Type</th></tr></thead>
+                    <tbody>
+                        <tr><td>Julius Bär</td><td>IAM</td></tr>
+                        <tr><td>Vontobel</td><td>IAM</td></tr>
+                        <tr><td>Pictet</td><td>IAM</td></tr>
+                        <tr><td>Lombard Odier</td><td>IAM</td></tr>
+                        <tr><td>UBS GWM</td><td>IAM</td></tr>
+                        <tr><td>Credit Suisse</td><td>IAM</td></tr>
+                        <tr><td>EFG Bank</td><td>IAM</td></tr>
+                        <tr><td>Syz Bank</td><td>IAM</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="tile">
-            <div class="tile-val" style="color:#666">284</div>
+
+        <div class="tile" id="tile-rest">
+            <div class="tile-header">
+                <div><div class="tile-val" style="color:#666">284</div></div>
+                <button class="toggle-btn" onclick="toggleDetails('rest')">▼</button>
+            </div>
             <div class="tile-label">The Rest</div>
+            <div class="details-pane" id="details-rest">
+                <div class="cluster-item"><span class="cluster-name">High Interest / Pending Ticket</span><span class="cluster-count">12</span></div>
+                <div class="cluster-item"><span class="cluster-name">In Discussion</span><span class="cluster-count">48</span></div>
+                <div class="cluster-item"><span class="cluster-name">Cold / No Response</span><span class="cluster-count">194</span></div>
+                <div class="cluster-item"><span class="cluster-name">Waitlisted</span><span class="cluster-count">30</span></div>
+            </div>
         </div>
     </div>
+
 </div>
+
+<script>
+    function toggleDetails(id) {
+        const pane = document.getElementById('details-' + id);
+        const btn = document.querySelector(`#tile-${id} .toggle-btn`);
+        const isVisible = pane.style.display === 'block';
+        
+        pane.style.display = isVisible ? 'none' : 'block';
+        btn.classList.toggle('active', !isVisible);
+    }
+</script>
+
 </body>
 </html>
