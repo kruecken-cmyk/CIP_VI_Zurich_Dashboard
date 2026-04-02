@@ -81,4 +81,105 @@
             <div class="t-step" onclick="toggle('t1')"><div class="t-dot done">✔</div><span class="t-label">FU 1</span><span class="t-sub">17.03</span></div>
             <div class="t-step" onclick="toggle('t1')"><div class="t-dot done">✔</div><span class="t-label">Reminder</span><span class="t-sub">23.03</span></div>
             <div class="t-step" onclick="toggle('t1')"><div class="t-dot done">✔</div><span class="t-label">FU 3</span><span class="t-sub">26.03</span></div>
-            <div class="t-step"><div class="
+            <div class="t-step"><div class="t-dot"></div><span class="t-label">Final</span><span class="t-sub">13.04</span></div>
+        </div>
+        <div class="details-pane" id="pane-t1">
+            <div class="table-scroll">
+                <table>
+                    <thead><tr><th class="col-main">Milestone</th><th class="col-side">Coverage</th></tr></thead>
+                    <tbody>
+                        <tr><td>Initial Invitation</td><td class="col-side">184 Sent</td></tr>
+                        <tr><td>1st Follow-Up (Direct Call)</td><td class="col-side">55 Actioned</td></tr>
+                        <tr><td>1st Reminder (Email)</td><td class="col-side">111 Actioned</td></tr>
+                        <tr><td>3rd Follow-Up (Direct Call)</td><td class="col-side">59 Actioned</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-card">
+        <span style="font-size: 9px; opacity: 0.5; text-transform: uppercase; margin-bottom: 15px; display: block;">Batch 2: New Wave (Pension & IAM - 184 Targets)</span>
+        <div class="timeline-flex">
+            <div class="t-step"><div class="t-dot active"></div><span class="t-label">Invites</span><span class="t-sub">01.04</span></div>
+            <div class="t-step"><div class="t-dot"></div><span class="t-label">FU 1</span><span class="t-sub">08.04</span></div>
+            <div class="t-step"><div class="t-dot"></div><span class="t-label">FU 2</span><span class="t-sub">13.04</span></div>
+            <div class="t-step"><div class="t-dot">★</div><span class="t-label">Event</span><span class="t-sub">15.04</span></div>
+        </div>
+    </div>
+
+    <div class="section-title">Investor Segmentation (Dropdown Tables)</div>
+    <div class="chart-grid">
+        
+        <div class="chart-card">
+            <div class="chart-container">
+                <div class="donut-box">
+                    <svg viewBox="0 0 36 36" class="donut">
+                        <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="var(--nio-gold)" stroke-width="3" stroke-dasharray="44.7 55.3" stroke-dashoffset="25"></circle>
+                        <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="#8c6d2d" stroke-width="3" stroke-dasharray="23.7 76.3" stroke-dashoffset="80.3"></circle>
+                        <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="#5c481e" stroke-width="3" stroke-dasharray="18.4 81.6" stroke-dashoffset="56.6"></circle>
+                        <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="#222" stroke-width="3" stroke-dasharray="13.2 86.8" stroke-dashoffset="38.2"></circle>
+                    </svg>
+                    <div class="total-center"><b>114</b><span>Batch 1</span></div>
+                </div>
+                <ul class="legend-list">
+                    <li class="legend-row" onclick="toggle('b1-mfo')"><div class="l-name"><div class="l-dot" style="background:var(--nio-gold)"></div>MFO</div><div class="l-val">51<span class="l-pct">44.7%</span></div></li>
+                    <li class="legend-row" onclick="toggle('b1-iam')"><div class="l-name"><div class="l-dot" style="background:#8c6d2d"></div>IAM</div><div class="l-val">27<span class="l-pct">23.7%</span></div></li>
+                    <li class="legend-row" onclick="toggle('b1-sfo')"><div class="l-name"><div class="l-dot" style="background:#5c481e"></div>SFO</div><div class="l-val">21<span class="l-pct">18.4%</span></div></li>
+                </ul>
+            </div>
+            <div class="details-pane" id="pane-b1-mfo">
+                <div class="table-scroll">
+                    <table>
+                        <thead><tr><th class="col-main">MFO Company Name</th><th class="col-side">Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>VermögensPartner</td><td class="col-side">Contacted</td></tr>
+                            <tr><td>Avalor Investment AG</td><td class="col-side">Contacted</td></tr>
+                            <tr><td>Finad AG</td><td class="col-side">Contacted</td></tr>
+                            <tr><td>Baseline Wealth Management</td><td class="col-side">Contacted</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-container">
+                <div class="donut-box">
+                    <svg viewBox="0 0 36 36" class="donut">
+                        <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="var(--nio-gold)" stroke-width="3" stroke-dasharray="62 38" stroke-dashoffset="25"></circle>
+                        <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="#8c6d2d" stroke-width="3" stroke-dasharray="38 62" stroke-dashoffset="63"></circle>
+                    </svg>
+                    <div class="total-center"><b>184</b><span>Batch 2</span></div>
+                </div>
+                <ul class="legend-list">
+                    <li class="legend-row" onclick="toggle('b2-pk')"><div class="l-name"><div class="l-dot" style="background:var(--nio-gold)"></div>Pension</div><div class="l-val">114<span class="l-pct">62.0%</span></div></li>
+                    <li class="legend-row" onclick="toggle('b2-iam')"><div class="l-name"><div class="l-dot" style="background:#8c6d2d"></div>IAM</div><div class="l-val">70<span class="l-pct">38.0%</span></div></li>
+                </ul>
+            </div>
+            <div class="details-pane" id="pane-b2-pk">
+                <div class="table-scroll">
+                    <table>
+                        <thead><tr><th class="col-main">Pension Fund</th><th class="col-side">Batch</th></tr></thead>
+                        <tbody>
+                            <tr><td>AHV Ausgleichsfonds</td><td class="col-side">Batch 2</td></tr>
+                            <tr><td>PK der Credit Suisse</td><td class="col-side">Batch 2</td></tr>
+                            <tr><td>Suva</td><td class="col-side">Batch 2</td></tr>
+                            <tr><td>Migros PK</td><td class="col-side">Batch 2</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggle(id) {
+        const pane = document.getElementById('pane-' + id);
+        const isVisible = pane.style.display === 'block';
+        pane.style.display = isVisible ? 'none' : 'block';
+    }
+</script>
+</body>
+</html>
